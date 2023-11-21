@@ -7297,6 +7297,7 @@ html.boxed body {
 	z-index: 1080;
 }
 
+
 /*
 *
 * Text styling
@@ -17785,4 +17786,9 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
 	.banner-top {
 		display: none;
 	}
+}
+
+.rd-navbar-fixed {
+    position: fixed;
+    top: 0;
 }
