@@ -14,8 +14,7 @@ def index():
     return render_template('index.html')
 
 
-<<<<<<< HEAD
-=======
+
 @app.route('/a_propos')
 def service():
     return render_template('service.html')
@@ -90,7 +89,7 @@ def supprimer_achete_maison():
 @app.route('/supprimer_loue_maison')
 def supprimer_loue_maison():
     return render_template('loue_maison.html')
->>>>>>> 1dac587125e2262cfd0be8a6f8fef6264f2e5d56
+
 
 
 if __name__ == '__main__':
