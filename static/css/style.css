@@ -17787,8 +17787,14 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
 		display: none;
 	}
 }
-
+#####################################Modification du CSS pour notre projet###########################################
 .rd-navbar-fixed {
     position: fixed;
     top: 0;
 }
+
+.rd-navbar-main{
+    display: flex;
+    flex-direction: row;
+}
+
