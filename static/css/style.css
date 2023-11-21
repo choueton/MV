@@ -2,6 +2,19 @@
 /*
 * Trunk version 2.0.0
 */
+
+
+
+/* moi sanogo */
+.nav_flex{
+	display: flex;
+}
+
+.ccc{
+margin-top: 5px !important;
+}
+
+/* fin moi */
 a:focus,
 button:focus {
 	outline: none !important;
@@ -11062,11 +11075,11 @@ html.rd-navbar-fixed-linked .page {
 * RD Navbar Corporate
 * 
 */
-.rd-navbar-corporate.rd-navbar-static,
+/* .rd-navbar-corporate.rd-navbar-static,
 .rd-navbar-corporate.rd-navbar-static .rd-navbar-main-outer {
 	padding-left: 15px;
 	padding-right: 15px;
-}
+} */
 
 .rd-navbar-corporate.rd-navbar-static .rd-navbar-aside,
 .rd-navbar-corporate.rd-navbar-static .rd-navbar-main {
