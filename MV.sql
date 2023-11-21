@@ -4,9 +4,9 @@ CREATE DATABASE MV
 
 DROP TABLE IF EXISTS Administrateur
 CREATE TABLE Administrateur (
-IdUtilisateur INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+IdAdministrateur  INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 Nom_et_prenoms VARCHAR(50),
-Email VARCHAR(20),
+Email VARCHAR(50),
 Mot_de_pass VARCHAR(20),
 Telephone VARCHAR(20)
 )
@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS Utilisateur
 CREATE TABLE Utilisateur (
 IdUtilisateur INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 Nom_et_prenoms VARCHAR(50),
-Email VARCHAR(20),
+Email VARCHAR(50),
 Mot_de_pass VARCHAR(20),
 Adresse VARCHAR(20),
 Telephone VARCHAR(20)
@@ -46,8 +46,8 @@ Ville VARCHAR(20),
 Commune VARCHAR(20),
 Nombre_de_pieces INT,
 Prix_mensuel FLOAT,
-Caution VARCHAR(20),
-Avance VARCHAR(20),
+Caution FLOAT,
+Avance FLOAT,
 Descriptions VARCHAR(20),
 Type_de_maison VARCHAR(20),
 Statut_maison VARCHAR(20),
@@ -65,6 +65,7 @@ Ville VARCHAR(20),
 Commune VARCHAR(20),
 Descriptions VARCHAR(20),
 Dates date,
+Statut_servives VARCHAR(20),
 GPS VARCHAR(20),
 IdUtilisateur INT NOT NULL,
 FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
@@ -79,16 +80,21 @@ FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison),
 FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
 
-DROP TABLE IF EXISTS Loué
-CREATE TABLE Loué (
-IdLoué INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+DROP TABLE IF EXISTS LouÃ©
+CREATE TABLE IdLouÃ© (
+IdLouÃ© INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 IdMaison INT NOT NULL,
 IdUtilisateur INT NOT NULL,
 FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison),
 FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
 
-
+DROP TABLE IF EXISTS Historique_servives
+CREATE TABLE Historique_servives (
+IdHist_servives INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+IdUtilisateur INT NOT NULL,
+FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
+)
 
 
 
