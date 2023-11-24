@@ -56,16 +56,16 @@ def profile_loue_maison():
 
 @app.route('/ajou_loue_maison')
 def add_loue_maison():
-    return render_template('/formulaire/ajoute/add_loue_maison.html')
+    return render_template('/formulaire/ajoute/ajout_loue_maison.html')
 
 
 @app.route('/ajout_achete_maison')
 def add_achete_maison():
-    return render_template('/formulaire/ajoute/add_achete_maison.html')
+    return render_template('/formulaire/ajoute/ajout_achete_maison.html')
 
 @app.route('/ajout_service')
 def add_service():
-    return render_template('/formulaire/ajoute/add_service.html')
+    return render_template('/formulaire/ajoute/ajout_service.html')
 
 
 ######## fini ajoute ###########
