@@ -17800,3 +17800,6 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
     flex-direction: row;
 }
 
+.bgajout{
+	background-image: url("/static/images/breadcrumbs-image-1.jpg");
+}
