@@ -6,36 +6,49 @@ app.secret_key = 'votre_clé_secrète'
 
 
 
-
 #################################################################
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
-
 @app.route('/a_propos')
+def a_propos():
+    return render_template('/page/a_propos.html')
+
+@app.route('/service')
 def service():
-    return render_template('service.html')
+    return render_template('/page/service.html')
 
 @app.route('/achete_maison')
 def achete_maison():
-    return render_template('achete_maison.html')
+    return render_template('/page/achete_maison.html')
 
 @app.route('/loue_maison')
 def loue_maison():
-    return render_template('loue_maison.html')
+    return render_template('/page/loue_maison.html')
 
 @app.route('/contacte')
 def contacte():
-    return render_template('contacte.html')
+    return render_template('/page/contacte.html')
+
+############################################################################
+
+#### profile ###
 
 @app.route('/profile_user')
 def profile_user():
-    return render_template('profile_user.html')
+    return render_template('/profile/profile_user.html')
 
-############################################################################
+@app.route('/profile_achete_maison')
+def profile_achete_maison():
+    return render_template('/profile/profile_achete_maison.html')
+
+
+@app.route('/profile_loue_maison')
+def profile_loue_maison():
+    return render_template('/profile/profile_loue_maison.html')
+
 
 ##### formulaire #############################
 
@@ -43,33 +56,34 @@ def profile_user():
 
 @app.route('/ajou_loue_maison')
 def add_loue_maison():
-    return render_template('add_loue_maison.html')
+    return render_template('/formulaire/ajoute/add_loue_maison.html')
 
 
-@app.route('/ajout_loue_maison')
+@app.route('/ajout_achete_maison')
 def add_achete_maison():
-    return render_template('add_achete_maison.html')
+    return render_template('/formulaire/ajoute/add_achete_maison.html')
 
 @app.route('/ajout_service')
 def add_service():
-    return render_template('add_service.html')
+    return render_template('/formulaire/ajoute/add_service.html')
+
 
 ######## fini ajoute ###########
 ######## modifier ###########
 
 @app.route('/modifier_loue_maison')
 def modifier_loue_maison():
-    return render_template('modifier_loue_maison.html')
+    return render_template('/formulaire/modifier/modifier_loue_maison.html')
 
 
 
-@app.route('/modifier_loue_maison')
+@app.route('/modifier_achete_maison')
 def modifier_achete_maison():
-    return render_template('formumodifier_achete_maison.html')
+    return render_template('/formulaire/modifier/modifier_achete_maison.html')
 
 @app.route('/modifier_service')
 def modifier_service():
-    return render_template('modifier_service.html')
+    return render_template('/formulaire/modifier/modifier_service.html')
 
 ######## fini modifier ###########
 
