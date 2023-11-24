@@ -21,8 +21,6 @@ Adresse VARCHAR(20),
 Telephone VARCHAR(20)
 )
 
-
-
 DROP TABLE IF EXISTS Maison
 CREATE TABLE Maison (
 IdMaison INT NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -81,7 +79,7 @@ FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
 
 DROP TABLE IF EXISTS Loué
-CREATE TABLE IdLoué (
+CREATE TABLE Loué (
 IdLoué INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 IdMaison INT NOT NULL,
 IdUtilisateur INT NOT NULL,
