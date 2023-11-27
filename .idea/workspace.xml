@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="67104df7-c45d-4fae-af8a-50d95b6c927a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/achete_maison.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/achete_maison.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/contacte.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/contacte.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/loue_maison.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/loue_maison.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/service.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/service.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
