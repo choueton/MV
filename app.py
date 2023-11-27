@@ -46,7 +46,6 @@ def add_mise_en_vente_maison():
     return render_template('/formulaire/ajoute/mise_en_vente_maison.html')
 
 
-
 @app.route('/modifier_mise_en_vente_maison')
 def modifier_mise_en_vente_maison():
     return render_template('/formulaire/modifier/modifier_mise_en_vente_maison.html')
@@ -65,8 +64,8 @@ def profile_maison_en_vente():
 def mise_en_location():
     return render_template('/formulaire/ajoute/mise_en_location.html')
 
-@app.route('/profile_loue_maison')
-def profile_loue_maison():
+@app.route('/profile_location')
+def profile_location():
     return render_template('/profile/profile_location.html')
 
 @app.route('/modifier_mise_en_location')

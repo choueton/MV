@@ -31,8 +31,18 @@
                                 </div>
                                 <div class="col-md-6 wow-outer cs">
                                     <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-email">Prix_unitaire</label>
-                                        <input class="form-input" id="contact-email" type="number" name="Prix_unitaire" data-constraints="@Numeric" >
+                                        <label class="form-label-outside" for="contact-email">Caution</label>
+                                        <input class="form-input" id="contact-email" type="INT" name="Caution" data-constraints="@Numeric" >
+                                    </div>
+                                </div>
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-email">Avance</label>
+                                    <input class="form-input" id="contact-email" type="INT" name="Avance" data-constraints="@Numeric" >
+                                </div>
+                                <div class="col-12 wow-outer">
+                                    <div class="form-wrap wow fadeSlideInUp">
+                                        <label class="form-label-outside" for="contact-message">Descriptions</label>
+                                        <textarea class="form-input" id="contact-message" name="message" Required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6 wow-outer">
@@ -51,12 +61,6 @@
                                     <div class="form-wrap wow fadeSlideInUp">
                                         <label class="form-label-outside" for="contact-phone">GPS</label>
                                         <input class="form-input" id="contact-email" type="text" name="GPS" data-constraints="@Required" >
-                                    </div>
-                                </div>
-                                <div class="col-12 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-message">Descriptions</label>
-                                        <textarea class="form-input" id="contact-message" name="message" Required></textarea>
                                     </div>
                                 </div>
                             </div>
