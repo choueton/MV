@@ -95,9 +95,3 @@ FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
 
 
-DROP TABLE IF EXISTS Historique_servives
-CREATE TABLE Historique_servives (
-IdHist_servives INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-IdUtilisateur INT NOT NULL,
-FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
-)
