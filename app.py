@@ -40,71 +40,64 @@ def contacte():
 def profile_user():
     return render_template('/profile/profile_user.html')
 
-@app.route('/profile_achete_maison')
-def profile_achete_maison():
-    return render_template('/profile/profile_achete_maison.html')
 
+##### formulaire #############################
+
+######## location ###########
+
+@app.route('/ajou_loue_maison')
+def add_loue_maison():
+    return render_template('/formulaire/location/ajout_loue_maison.html')
+
+@app.route('/modifier_loue_maison')
+def modifier_loue_maison():
+    return render_template('/formulaire/location/modifier_loue_maison.html')
+
+@app.route('/supprimer_loue_maison')
+def supprimer_loue_maison():
+    return
 
 @app.route('/profile_loue_maison')
 def profile_loue_maison():
     return render_template('/profile/profile_loue_maison.html')
 
-
-##### formulaire #############################
-
-######## ajoute ###########
-
-@app.route('/ajou_loue_maison')
-def add_loue_maison():
-    return render_template('/formulaire/ajoute/ajout_loue_maison.html')
-
+######## fini location ###########
+######## maison ###########
 
 @app.route('/ajout_achete_maison')
 def add_achete_maison():
-    return render_template('/formulaire/ajoute/ajout_achete_maison.html')
-
-@app.route('/ajout_service')
-def add_service():
-    return render_template('/formulaire/ajoute/ajout_service.html')
-
-
-######## fini ajoute ###########
-######## modifier ###########
-
-@app.route('/modifier_loue_maison')
-def modifier_loue_maison():
-    return render_template('/formulaire/modifier/modifier_loue_maison.html')
-
-
+    return render_template('/formulaire/maison/ajout_achete_maison.html')
 
 @app.route('/modifier_achete_maison')
 def modifier_achete_maison():
-    return render_template('/formulaire/modifier/modifier_achete_maison.html')
-
-@app.route('/modifier_service')
-def modifier_service():
-    return render_template('/formulaire/modifier/modifier_service.html')
-
-######## fini modifier ###########
-
-#####################################################################################
-
-##### supprimer ############
-
-
-@app.route('/supprimer_service')
-def supprimer_service():
-    return render_template('service.html')
+    return render_template('/formulaire/maison/modifier_achete_maison.html')
 
 @app.route('/supprimer_achete_maison')
 def supprimer_achete_maison():
-    return render_template('achete_maison.html')
+    return 
 
-@app.route('/supprimer_loue_maison')
-def supprimer_loue_maison():
-    return render_template('loue_maison.html')
+@app.route('/profile_achete_maison')
+def profile_achete_maison():
+    return render_template('/profile/profile_achete_maison.html')
+
+######## fini maison ###########
 
 
+##### servisse ############
+
+@app.route('/ajout_service')
+def add_service():
+    return render_template('/formulaire/servisse/ajout_service.html')
+
+@app.route('/modifier_service')
+def modifier_service():
+    return render_template('/formulaire/servisse/modifier_service.html')
+
+@app.route('/supprimer_service')
+def supprimer_service():
+    return 
+
+#####################################################################################
 
 if __name__ == '__main__':
     app.run(debug=True)
