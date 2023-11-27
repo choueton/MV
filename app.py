@@ -40,45 +40,42 @@ def contacte():
 def profile_user():
     return render_template('/profile/profile_user.html')
 
-@app.route('/profile_achete_maison')
-def profile_achete_maison():
-    return render_template('/profile/profile_achete_maison.html')
-
-
-@app.route('/profile_loue_maison')
-def profile_loue_maison():
-    return render_template('/profile/profile_loue_maison.html')
-
-
-##### formulaire #############################
-
 ######## maison ###########
+@app.route('/mise_en_vente_maison')
+def add_mise_en_vente_maison():
+    return render_template('/formulaire/ajoute/mise_en_vente_maison.html')
 
-@app.route('/ajou_loue_maison')
-def add_loue_maison():
-    return render_template('/formulaire/ajoute/ajout_loue_maison.html')
 
-@app.route('/modifier_achete_maison')
-def modifier_achete_maison():
-    return render_template('/formulaire/modifier/modifier_achete_maison.html')
 
-@app.route('/supprimer_achete_maison')
-def supprimer_achete_maison():
-    return render_template('achete_maison.html')
+@app.route('/modifier_mise_en_vente_maison')
+def modifier_mise_en_vente_maison():
+    return render_template('/formulaire/modifier/modifier_mise_en_vente_maison.html')
+
+@app.route('/supprimer_mise_en_vente_maison')
+def supprimer_mise_en_vente_maison():
+    return
+
+@app.route('/profile_maison_en_vente')
+def profile_maison_en_vente():
+    return render_template('/profile/profile_maison.html')
 
 #### loue_maison ###################
 
-@app.route('/ajout_achete_maison')
-def add_achete_maison():
-    return render_template('/formulaire/ajoute/ajout_achete_maison.html')
+@app.route('/mise_en_location')
+def mise_en_location():
+    return render_template('/formulaire/ajoute/mise_en_location.html')
 
-@app.route('/modifier_loue_maison')
-def modifier_loue_maison():
-    return render_template('/formulaire/modifier/modifier_loue_maison.html')
+@app.route('/profile_loue_maison')
+def profile_loue_maison():
+    return render_template('/profile/profile_location.html')
 
-@app.route('/supprimer_loue_maison')
-def supprimer_loue_maison():
-    return render_template('loue_maison.html')
+@app.route('/modifier_mise_en_location')
+def modifier_mise_en_location():
+    return render_template('/formulaire/modifier/modifier_mise_en_location.html')
+
+@app.route('/supprimer_mise_en_location')
+def supprimer_mise_en_location():
+    return 
 
 ######## service  ###########
 
