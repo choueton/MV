@@ -17872,7 +17872,16 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
 
 /* tetenoire_profile_user */
 .tetenoire{
-	height: 100px;
+	height: 80px;
 	width: 100%;
 	background-color: black;
+}
+
+.rd-navbar-nav{
+	display: flex;
+	flex-direction: row;
+}
+
+.boutonconnection{
+	margin-left: 20px;
 }
