@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap') ;
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap') ;
 * { 
   margin: 0;
   padding: 0;
@@ -88,13 +88,13 @@ formulaire .mot de passe i {
     background: #1BB295;
     transition: ease 0.2s;
 }
-.submit-btn entrée :hover {  
+.submit-btn entrée:hover {  
     background: #179b81;
-}
+} */
 
-/* ----------------------------------------------------------------------------------- */
+/* ----------------------la traduction------------------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -200,4 +200,4 @@ form .password i {
 
 .submit-btn input:hover {
   background: #179b81;
-}
+} */

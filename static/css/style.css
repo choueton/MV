@@ -15,6 +15,60 @@
     background-color: #007bff;
     border-color: #007bff;
 }
+a
+.table-dark{
+	
+}
+
+/*  */
+.main-body {
+    padding: 15px;
+}
+.card1 {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body1 {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm1 {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm1>.col1, .gutters-sm1>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-31, .my-31 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-3001 {
+    background-color: #e2e8f0;
+}
+.h-1001 {
+    height: 100%!important;
+}
+.shadow-none1 {
+    box-shadow: none!important;
+}
+/*  */
 
 /* input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -589,7 +643,7 @@ a {
 }
 
 a, a:focus, a:active, a:hover {
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 a, a:focus, a:active {
