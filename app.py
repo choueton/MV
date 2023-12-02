@@ -90,5 +90,16 @@ def modifier_service():
 def supprimer_service():
     return render_template('service.html')
 
+######## connexion / inscription  ###########
+
+@app.route('/connexion')
+def connexion():
+    return render_template('./formulaire/connexion/login.html')
+
+
+@app.route('/register')
+def register():
+    return render_template('./formulaire/connexion/register.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
