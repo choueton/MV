@@ -1,9 +1,19 @@
 from flask import Flask, render_template, url_for
+import pyodbc
+
+
 
 app = Flask(__name__)
 
 app.secret_key = 'votre_clé_secrète'
 
+app.secret_key = 'votre_clé_secrète'
+# Configuration de la connexion à SQL Server
+app.config['SQL_SERVER_CONNECTION_STRING'] = """
+    Driver={SQL Server};
+    Server=DESKTOP-JK6D8G9\\SQLEXPRESS;
+    Database=mon de le db;
+    Trusted_Connection=yes;"""
 
 
 #################################################################
@@ -41,6 +51,7 @@ def profile_user():
     return render_template('/profile/profile_user.html')
 
 ######## maison ###########
+
 @app.route('/mise_en_vente_maison')
 def add_mise_en_vente_maison():
     return render_template('/formulaire/ajoute/mise_en_vente_maison.html')
