@@ -1,11 +1,10 @@
 from flask import Flask, render_template, url_for
-import pyodbc
+
 
 
 
 app = Flask(__name__)
 
-app.secret_key = 'votre_clé_secrète'
 
 app.secret_key = 'votre_clé_secrète'
 # Configuration de la connexion à SQL Server
