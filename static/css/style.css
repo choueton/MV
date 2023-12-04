@@ -18156,3 +18156,34 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
     color: #495057;
 }
 
+/* filtre */
+#views-exposed-form-recherche-immobilier-page-1{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.form-item{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	margin-right: 1rem;
+}
+
+.views-exposed{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.clearfix{
+	width: 80%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
