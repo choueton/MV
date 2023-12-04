@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for
-
-
+import pyodbc 
 
 
 app = Flask(__name__)
@@ -11,7 +10,7 @@ app.secret_key = 'votre_clé_secrète'
 app.config['SQL_SERVER_CONNECTION_STRING'] = """
     Driver={SQL Server};
     Server=DESKTOP-JK6D8G9\\SQLEXPRESS;
-    Database=mon de le db;
+    Database=MV;
     Trusted_Connection=yes;"""
 
 

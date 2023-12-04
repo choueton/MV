@@ -15,11 +15,13 @@
     background-color: #007bff;
     border-color: #007bff;
 }
-a
-.table-dark{
-	
+.justify-content-between{
+	display: flex;
+	justify-content: space-between;
 }
-
+.justify-content-between .form-input{
+	width: 16.4% !important;
+}
 /*  */
 .main-body {
     padding: 15px;
@@ -76,8 +78,8 @@ input::-webkit-inner-spin-button {
     margin: 0;
 } */
 
-.col-md-6.cs input::-webkit-outer-spin-button,
-.col-md-6.cs input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
