@@ -17870,12 +17870,6 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
 	background-image: url("/static/images/breadcrumbs-image-1.jpg");
 }
 
-/* tetenoire_profile_user */
-.tetenoire{
-	height: 80px;
-	width: 100%;
-	background-color: black;
-}
 
 .rd-navbar-nav{
 	display: flex;
