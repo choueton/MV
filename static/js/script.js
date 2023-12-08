@@ -802,7 +802,7 @@
 		if (plugins.rdInputLabel.length) {
 			plugins.rdInputLabel.RDInputLabel();
 		}
-
+// adsadfsasa
 		// Swiper
 		if (plugins.swiper.length) {
 			for (var i = 0; i < plugins.swiper.length; i++) {
@@ -865,7 +865,7 @@
 				});
 			}
 		}
-
+// jhfoluEDF
 		// Owl carousel
 		if (plugins.owl.length) {
 			for (var i = 0; i < plugins.owl.length; i++) {
@@ -982,209 +982,209 @@
 		}
 
 		// Campaign Monitor ajax subscription
-		if (plugins.campaignMonitor.length) {
-			for (i = 0; i < plugins.campaignMonitor.length; i++) {
-				var $campaignItem = $(plugins.campaignMonitor[i]);
+		// if (plugins.campaignMonitor.length) {
+		// 	for (i = 0; i < plugins.campaignMonitor.length; i++) {
+		// 		var $campaignItem = $(plugins.campaignMonitor[i]);
 
-				$campaignItem.on('submit', $.proxy(function (e) {
-					var data = {},
-							url = this.attr('action'),
-							dataArray = this.serializeArray(),
-							$output = $("#" + plugins.campaignMonitor.attr("data-form-output")),
-							$this = $(this);
+		// 		$campaignItem.on('submit', $.proxy(function (e) {
+		// 			var data = {},
+		// 					url = this.attr('action'),
+		// 					dataArray = this.serializeArray(),
+		// 					$output = $("#" + plugins.campaignMonitor.attr("data-form-output")),
+		// 					$this = $(this);
 
-					for (i = 0; i < dataArray.length; i++) {
-						data[dataArray[i].name] = dataArray[i].value;
-					}
+		// 			for (i = 0; i < dataArray.length; i++) {
+		// 				data[dataArray[i].name] = dataArray[i].value;
+		// 			}
 
-					$.ajax({
-						data: data,
-						url: url,
-						dataType: 'jsonp',
-						error: function (resp, text) {
-							$output.html('Server error: ' + text);
+		// 			$.ajax({
+		// 				data: data,
+		// 				url: url,
+		// 				dataType: 'jsonp',
+		// 				error: function (resp, text) {
+		// 					$output.html('Server error: ' + text);
 
-							setTimeout(function () {
-								$output.removeClass("active");
-							}, 4000);
-						},
-						success: function (resp) {
-							$output.html(resp.Message).addClass('active');
+		// 					setTimeout(function () {
+		// 						$output.removeClass("active");
+		// 					}, 4000);
+		// 				},
+		// 				success: function (resp) {
+		// 					$output.html(resp.Message).addClass('active');
 
-							setTimeout(function () {
-								$output.removeClass("active");
-							}, 6000);
-						},
-						beforeSend: function (data) {
-							// Stop request if builder or inputs are invalide
-							if (isNoviBuilder || !isValidated($this.find('[data-constraints]')))
-								return false;
+		// 					setTimeout(function () {
+		// 						$output.removeClass("active");
+		// 					}, 6000);
+		// 				},
+		// 				beforeSend: function (data) {
+		// 					// Stop request if builder or inputs are invalide
+		// 					if (isNoviBuilder || !isValidated($this.find('[data-constraints]')))
+		// 						return false;
 
-							$output.html('Submitting...').addClass('active');
-						}
-					});
+		// 					$output.html('Submitting...').addClass('active');
+		// 				}
+		// 			});
 
-					// Clear inputs after submit
-					var inputs = $this[0].getElementsByTagName('input');
-					for (var i = 0; i < inputs.length; i++) {
-						inputs[i].value = '';
-						var label = document.querySelector('[for="' + inputs[i].getAttribute('id') + '"]');
-						if (label) label.classList.remove('focus', 'not-empty');
-					}
+		// 			// Clear inputs after submit
+		// 			var inputs = $this[0].getElementsByTagName('input');
+		// 			for (var i = 0; i < inputs.length; i++) {
+		// 				inputs[i].value = '';
+		// 				var label = document.querySelector('[for="' + inputs[i].getAttribute('id') + '"]');
+		// 				if (label) label.classList.remove('focus', 'not-empty');
+		// 			}
 
-					return false;
-				}, $campaignItem));
-			}
-		}
+		// 			return false;
+		// 		}, $campaignItem));
+		// 	}
+		// }
 
 		// RD Mailform
-		if (plugins.rdMailForm.length) {
-			var i, j, k,
-					msg = {
-						'MF000': 'Successfully sent!',
-						'MF001': 'Recipients are not set!',
-						'MF002': 'Form will not work locally!',
-						'MF003': 'Please, define email field in your form!',
-						'MF004': 'Please, define type of your form!',
-						'MF254': 'Something went wrong with PHPMailer!',
-						'MF255': 'Aw, snap! Something went wrong.'
-					};
+		// if (plugins.rdMailForm.length) {
+		// 	var i, j, k,
+		// 			msg = {
+		// 				'MF000': 'Successfully sent!',
+		// 				'MF001': 'Recipients are not set!',
+		// 				'MF002': 'Form will not work locally!',
+		// 				'MF003': 'Please, define email field in your form!',
+		// 				'MF004': 'Please, define type of your form!',
+		// 				'MF254': 'Something went wrong with PHPMailer!',
+		// 				'MF255': 'Aw, snap! Something went wrong.'
+		// 			};
 
-			for (i = 0; i < plugins.rdMailForm.length; i++) {
-				var $form = $(plugins.rdMailForm[i]),
-						formHasCaptcha = false;
+		// 	for (i = 0; i < plugins.rdMailForm.length; i++) {
+		// 		var $form = $(plugins.rdMailForm[i]),
+		// 				formHasCaptcha = false;
 
-				$form.attr('novalidate', 'novalidate').ajaxForm({
-					data: {
-						"form-type": $form.attr("data-form-type") || "contact",
-						"counter": i
-					},
-					beforeSubmit: function (arr, $form, options) {
-						if (isNoviBuilder)
-							return;
+		// 		$form.attr('novalidate', 'novalidate').ajaxForm({
+		// 			data: {
+		// 				"form-type": $form.attr("data-form-type") || "contact",
+		// 				"counter": i
+		// 			},
+		// 			beforeSubmit: function (arr, $form, options) {
+		// 				if (isNoviBuilder)
+		// 					return;
 
-						var form = $(plugins.rdMailForm[this.extraData.counter]),
-								inputs = form.find("[data-constraints]"),
-								output = $("#" + form.attr("data-form-output")),
-								captcha = form.find('.recaptcha'),
-								captchaFlag = true;
+		// 				var form = $(plugins.rdMailForm[this.extraData.counter]),
+		// 						inputs = form.find("[data-constraints]"),
+		// 						output = $("#" + form.attr("data-form-output")),
+		// 						captcha = form.find('.recaptcha'),
+		// 						captchaFlag = true;
 
-						output.removeClass("active error success");
+		// 				output.removeClass("active error success");
 
-						if (isValidated(inputs, captcha)) {
+		// 				if (isValidated(inputs, captcha)) {
 
-							// veify reCaptcha
-							if (captcha.length) {
-								var captchaToken = captcha.find('.g-recaptcha-response').val(),
-										captchaMsg = {
-											'CPT001': 'Please, setup you "site key" and "secret key" of reCaptcha',
-											'CPT002': 'Something wrong with google reCaptcha'
-										};
+		// 					// veify reCaptcha
+		// 					if (captcha.length) {
+		// 						var captchaToken = captcha.find('.g-recaptcha-response').val(),
+		// 								captchaMsg = {
+		// 									'CPT001': 'Please, setup you "site key" and "secret key" of reCaptcha',
+		// 									'CPT002': 'Something wrong with google reCaptcha'
+		// 								};
 
-								formHasCaptcha = true;
+		// 						formHasCaptcha = true;
 
-								$.ajax({
-									method: "POST",
-									url: "bat/reCaptcha.php",
-									data: {'g-recaptcha-response': captchaToken},
-									async: false
-								})
-								.done(function (responceCode) {
-									if (responceCode !== 'CPT000') {
-										if (output.hasClass("snackbars")) {
-											output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[responceCode] + '</span></p>')
+		// 						$.ajax({
+		// 							method: "POST",
+		// 							url: "bat/reCaptcha.php",
+		// 							data: {'g-recaptcha-response': captchaToken},
+		// 							async: false
+		// 						})
+		// 						.done(function (responceCode) {
+		// 							if (responceCode !== 'CPT000') {
+		// 								if (output.hasClass("snackbars")) {
+		// 									output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[responceCode] + '</span></p>')
 
-											setTimeout(function () {
-												output.removeClass("active");
-											}, 3500);
+		// 									setTimeout(function () {
+		// 										output.removeClass("active");
+		// 									}, 3500);
 
-											captchaFlag = false;
-										} else {
-											output.html(captchaMsg[responceCode]);
-										}
+		// 									captchaFlag = false;
+		// 								} else {
+		// 									output.html(captchaMsg[responceCode]);
+		// 								}
 
-										output.addClass("active");
-									}
-								});
-							}
+		// 								output.addClass("active");
+		// 							}
+		// 						});
+		// 					}
 
-							if (!captchaFlag) {
-								return false;
-							}
+		// 					if (!captchaFlag) {
+		// 						return false;
+		// 					}
 
-							form.addClass('form-in-process');
+		// 					form.addClass('form-in-process');
 
-							if (output.hasClass("snackbars")) {
-								output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
-								output.addClass("active");
-							}
-						} else {
-							return false;
-						}
-					},
-					error: function (result) {
-						if (isNoviBuilder)
-							return;
+		// 					if (output.hasClass("snackbars")) {
+		// 						output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
+		// 						output.addClass("active");
+		// 					}
+		// 				} else {
+		// 					return false;
+		// 				}
+		// 			},
+		// 			error: function (result) {
+		// 				if (isNoviBuilder)
+		// 					return;
 
-						var output = $("#" + $(plugins.rdMailForm[this.extraData.counter]).attr("data-form-output")),
-								form = $(plugins.rdMailForm[this.extraData.counter]);
+		// 				var output = $("#" + $(plugins.rdMailForm[this.extraData.counter]).attr("data-form-output")),
+		// 						form = $(plugins.rdMailForm[this.extraData.counter]);
 
-						output.text(msg[result]);
-						form.removeClass('form-in-process');
+		// 				output.text(msg[result]);
+		// 				form.removeClass('form-in-process');
 
-						if (formHasCaptcha) {
-							grecaptcha.reset();
-						}
-					},
-					success: function (result) {
-						if (isNoviBuilder)
-							return;
+		// 				if (formHasCaptcha) {
+		// 					grecaptcha.reset();
+		// 				}
+		// 			},
+		// 			success: function (result) {
+		// 				if (isNoviBuilder)
+		// 					return;
 
-						var form = $(plugins.rdMailForm[this.extraData.counter]),
-								output = $("#" + form.attr("data-form-output")),
-								select = form.find('select');
+		// 				var form = $(plugins.rdMailForm[this.extraData.counter]),
+		// 						output = $("#" + form.attr("data-form-output")),
+		// 						select = form.find('select');
 
-						form
-						.addClass('success')
-						.removeClass('form-in-process');
+		// 				form
+		// 				.addClass('success')
+		// 				.removeClass('form-in-process');
 
-						if (formHasCaptcha) {
-							grecaptcha.reset();
-						}
+		// 				if (formHasCaptcha) {
+		// 					grecaptcha.reset();
+		// 				}
 
-						result = result.length === 5 ? result : 'MF255';
-						output.text(msg[result]);
+		// 				result = result.length === 5 ? result : 'MF255';
+		// 				output.text(msg[result]);
 
-						if (result === "MF000") {
-							if (output.hasClass("snackbars")) {
-								output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + msg[result] + '</span></p>');
-							} else {
-								output.addClass("active success");
-							}
-						} else {
-							if (output.hasClass("snackbars")) {
-								output.html(' <p class="snackbars-left"><span class="icon icon-xxs mdi mdi-alert-outline text-middle"></span><span>' + msg[result] + '</span></p>');
-							} else {
-								output.addClass("active error");
-							}
-						}
+		// 				if (result === "MF000") {
+		// 					if (output.hasClass("snackbars")) {
+		// 						output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + msg[result] + '</span></p>');
+		// 					} else {
+		// 						output.addClass("active success");
+		// 					}
+		// 				} else {
+		// 					if (output.hasClass("snackbars")) {
+		// 						output.html(' <p class="snackbars-left"><span class="icon icon-xxs mdi mdi-alert-outline text-middle"></span><span>' + msg[result] + '</span></p>');
+		// 					} else {
+		// 						output.addClass("active error");
+		// 					}
+		// 				}
 
-						form.clearForm();
+		// 				form.clearForm();
 
-						if (select.length) {
-							select.select2("val", "");
-						}
+		// 				if (select.length) {
+		// 					select.select2("val", "");
+		// 				}
 
-						form.find('input, textarea').trigger('blur');
+		// 				form.find('input, textarea').trigger('blur');
 
-						setTimeout(function () {
-							output.removeClass("active error success");
-							form.removeClass('success');
-						}, 3500);
-					}
-				});
-			}
-		}
+		// 				setTimeout(function () {
+		// 					output.removeClass("active error success");
+		// 					form.removeClass('success');
+		// 				}, 3500);
+		// 			}
+		// 		});
+		// 	}
+		// }
 
 		// lightGallery
 		if (plugins.lightGallery.length) {

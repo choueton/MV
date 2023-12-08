@@ -8,7 +8,7 @@
                 <div class="col-lg-9 cell-inner">
                     <div class="section-lg">
                     <!-- RD Mailform-->
-                        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="">
+                        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/mise_en_location" enctype="multipart/form-data">
                             <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Mise en location</span></h3>
                             <div class="row row-10">
                                 <div class="col-md-6 wow-outer">
@@ -27,6 +27,12 @@
                                     <div class="form-wrap wow fadeSlideInUp">
                                         <label class="form-label-outside" for="contact-email">Nombre_de_pieces</label>
                                         <input class="form-input" id="contact-email" type="number" name="Nombre_de_pieces" min="1" data-constraints="@Numeric">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 wow-outer">
+                                    <div class="form-wrap wow fadeSlideInUp">
+                                        <label class="form-label-outside" for="contact-email">Prix_mensuel</label>
+                                        <input class="form-input" id="contact-email" type="number" name="Prix_mensuel" min="1" data-constraints="@Numeric">
                                     </div>
                                 </div>
                                 <div class="col-md-6 wow-outer cs">
@@ -71,8 +77,8 @@
                             </div>
                             <div class="col-md-6 wow-outer">
                                 <div class="form-wrap wow fadeSlideInUp">
-                                    <label for="myfile">Choisir un fichier:</label>
-                                    <input type="file" id="myfile" name="myfile"><br><br>
+                                    <label for="myfiles">Choisir des fichiers (jusqu'à 10):</label>
+                                    <input type="file" id="myfiles" name="myfiles[]" multiple><br><br>                            
                                 </div>
                             </div>
                             <div class="group group-middle">
