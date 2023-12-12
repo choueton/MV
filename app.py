@@ -17,7 +17,7 @@ app.secret_key = "votre_clé_secrète"
 # Configuration de la connexion à SQL Server
 app.config["SQL_SERVER_CONNECTION_STRING"] = """
     Driver={SQL Server};
-    Server=DESKTOP-VJVVU51\\SQLEXPRESS;
+    Server=DESKTOP-6RB7ER5\SQLEXPRESS;
     Database=MV;
     Trusted_Connection=yes;"""
 
@@ -311,67 +311,6 @@ def save_image_to_storage(image_file):
 @app.route("/profile_location")
 def profile_location():
     return render_template("/profile/profile_location.html")
-
-
-
-
-@app.route("/mise_en_location", methods=["GET", "POST"])
-def mise_en_location():
-    if request.method == "POST":
-        Ville = request.form["Ville"]
-        Commune = request.form["Commune"]
-        Nombre_de_pieces = request.form["Nombre_de_pieces"]
-        Prix_mensuel = request.form["Prix_mensuel"]
-        Caution = request.form["Caution"]
-        Avance = request.form["Avance"]
-        Descriptions = request.form["message"]
-        Type_de_maison = request.form["Type_de_maison"]
-        Statut_maison = request.form["Statut_maison"]
-        GPS = request.form["GPS"]
-
-        # Traitement des images
-        image_urls = []
-        if "myfiles[]" in request.files:
-            image_files = request.files.getlist("myfiles[]")
-            for image_file in image_files:
-                if image_file and allowed_file(image_file.filename):
-                    filename = secure_filename(image_file.filename)
-                    image_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-                    image_file.save(image_path)
-                    image_urls.append(image_path)
-
-        connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-        cursor = connection.cursor()
-        cursor.execute(
-            """INSERT INTO Locations 
-                        (Ville, Commune, Nombre_de_pieces, Prix_mensuel, Caution, Avance, Descriptions, 
-                        Type_de_maison, Statut_maison, GPS, Image1)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (
-                Ville,
-                Commune,
-                Nombre_de_pieces,
-                Prix_mensuel,
-                Caution,
-                Avance,
-                Descriptions,
-                Type_de_maison,
-                Statut_maison,
-                GPS,
-                ",".join(image_urls) if image_urls else None,
-            ),
-        )
-
-        connection.commit()
-        cursor.close()
-        connection.close()
-
-        return redirect(url_for("profile_user"))
-
-    return render_template("/formulaire/ajoute/mise_en_location.html")
-
-
-
 
 
 @app.route('/modifier_mise_en_location', methods=['POST','GET'])

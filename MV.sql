@@ -5,33 +5,32 @@ CREATE DATABASE MV
 DROP TABLE IF EXISTS Administrateur
 CREATE TABLE Administrateur (
 IdAdministrateur  INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-Nom_et_prenoms VARCHAR(50),
-Email VARCHAR(50),
-Mot_de_pass VARCHAR(20),
-Telephone VARCHAR(20)
+Nom_et_prenoms VARCHAR(500),
+Mot_de_pass VARCHAR(200),
+Telephone VARCHAR(200)
 )
 
 DROP TABLE IF EXISTS Utilisateur
 CREATE TABLE Utilisateur (
 IdUtilisateur INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-Nom_et_prenoms VARCHAR(50),
-Email VARCHAR(50),
-Mot_de_pass VARCHAR(20),
-Adresse VARCHAR(20),
-Telephone VARCHAR(20)
+Nom_et_prenoms VARCHAR(500),
+Email VARCHAR(500),
+Mot_de_pass VARCHAR(200),
+Adresse VARCHAR(200),
+Telephone VARCHAR(200)
 )
 
 DROP TABLE IF EXISTS Maison
 CREATE TABLE Maison (
 IdMaison INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-Ville VARCHAR(20),
-Commune VARCHAR(20),
+Ville VARCHAR(200),
+Commune VARCHAR(200),
 Nombre_de_pieces INT,
 Prix_unitaire FLOAT,
-Descriptions VARCHAR(20),
-Type_de_maison VARCHAR(20),
-Statut_maison VARCHAR(20),
-GPS VARCHAR(20),
+Descriptions VARCHAR(500),
+Type_de_maison VARCHAR(200),
+Statut_maison VARCHAR(200),
+GPS VARCHAR(200),
 IdUtilisateur INT NOT NULL,
 FOREIGN KEY  (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
@@ -49,7 +48,7 @@ Avance FLOAT,
 Descriptions VARCHAR(200),
 Type_de_maison VARCHAR(200),
 Statut_maison VARCHAR(200),
-GPS VARCHAR(20),
+GPS VARCHAR(200),
 )
 
 
@@ -57,13 +56,13 @@ DROP TABLE IF E;ls''
 XISTS Servives
 CREATE TABLE Servives (
 IdServives INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-Type_de_services VARCHAR(20),
-Ville VARCHAR(20),
-Commune VARCHAR(20),
-Descriptions VARCHAR(20),
+Type_de_services VARCHAR(200),
+Ville VARCHAR(200),
+Commune VARCHAR(200),
+Descriptions VARCHAR(200),
 Dates date,
-Statut_servives VARCHAR(20),
-GPS VARCHAR(20),
+Statut_servives VARCHAR(200),
+GPS VARCHAR(200),
 IdUtilisateur INT NOT NULL,
 FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
@@ -92,5 +91,3 @@ IdHist_servives INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 IdUtilisateur INT NOT NULL,
 FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
-
-
