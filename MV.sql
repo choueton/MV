@@ -31,6 +31,7 @@ Descriptions VARCHAR(500),
 Type_de_maison VARCHAR(200),
 Statut_maison VARCHAR(200),
 GPS VARCHAR(200),
+Image1 VARCHAR(MAX),
 IdUtilisateur INT NOT NULL,
 FOREIGN KEY  (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
@@ -49,6 +50,7 @@ Descriptions VARCHAR(200),
 Type_de_maison VARCHAR(200),
 Statut_maison VARCHAR(200),
 GPS VARCHAR(200),
+Image1 VARCHAR(MAX)
 )
 
 
