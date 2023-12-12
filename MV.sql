@@ -52,8 +52,7 @@ GPS VARCHAR(200),
 )
 
 
-DROP TABLE IF E;ls''
-XISTS Servives
+DROP TABLE IF EXISTS Servives
 CREATE TABLE Servives (
 IdServives INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 Type_de_services VARCHAR(200),
@@ -91,3 +90,5 @@ IdHist_servives INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 IdUtilisateur INT NOT NULL,
 FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
+
+
