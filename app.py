@@ -211,6 +211,14 @@ def service():
 def a_propos():
     return render_template('/page/a_propos.html')
 
+#### profile ###
+
+@app.route('/profile_user')
+def profile_user():
+    return render_template('/profile/profile_user.html')
+
+######## maison ###########
+
 @app.route("/profile_maison_en_vente")
 def profile_maison_en_vente():
     return render_template("/profile/profile_maison.html")
