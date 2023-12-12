@@ -203,6 +203,14 @@ def achete_maison():
 def contacte():
     return render_template("/page/contacte.html")
 
+@app.route('/service')
+def service():
+    return render_template('/page/service.html')
+
+@app.route('/a_propos')
+def a_propos():
+    return render_template('/page/a_propos.html')
+
 @app.route("/profile_maison_en_vente")
 def profile_maison_en_vente():
     return render_template("/profile/profile_maison.html")
