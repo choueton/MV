@@ -27,105 +27,6 @@ app.config["SQL_SERVER_CONNECTION_STRING"] = """
 
 ####################
 
-# La route doit être définie avant la fonction associée
-# @app.route("/loue_maison", methods=['GET', 'POST'])
-# def loue_maison():
-#     page = request.args.get(get_page_parameter(), type=int, default=1)
-
-#     # Définir le nombre d'éléments par page
-#     per_page = 4  # Vous pouvez ajuster cela en fonction de vos besoins
-
-#     # Établir une connexion à la base de données
-#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-#     cur = conn.cursor()
-
-#     # Exécuter la requête SQL avec la pagination
-#     query = """
-#         SELECT *
-#         FROM (
-#             SELECT *, ROW_NUMBER() OVER (ORDER BY IdLocations) AS RowNum
-#             FROM Locations
-#         ) AS paginated
-#         WHERE RowNum BETWEEN ? AND ?
-#     """
-#     cur.execute(query, ((page - 1) * per_page + 1, page * per_page))
-
-#     loc_afi = cur.fetchall()
-#     cur.close()
-#     conn.close()
-
-#     # Obtenir le nombre total d'éléments (utile pour la pagination)
-#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-#     cur = conn.cursor()
-#     total = cur.execute("SELECT COUNT(*) FROM Locations").fetchone()[0]
-#     cur.close()
-#     conn.close()
-
-#     # Créer l'objet Pagination
-#     pagination = Pagination(page=page, per_page=per_page, total=total, record_name='locations', css_framework='bootstrap5')
-
-#     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
-
-
-
-# @app.route("/loue_maison", methods=['GET', 'POST'])
-# def loue_maison():
-#     page = request.args.get(get_page_parameter(), type=int, default=1)
-
-#     # Définir le nombre d'éléments par page
-#     per_page = 4  # Vous pouvez ajuster cela en fonction de vos besoins
-
-#     # Récupérer les paramètres de filtre du formulaire
-#     ville = request.form.get('Ville')
-#     commune = request.form.get('Commune')
-#     nombre_de_pieces = request.form.get('Nombre_de_pieces')
-#     prix_min = request.form.get('Prix_mensuel')
-#     prix_max = request.form.get('Prix_mensuel')
-
-#     # Construire la requête SQL avec les paramètres de filtre
-#     query = """
-#         SELECT *
-#         FROM (
-#             SELECT *, ROW_NUMBER() OVER (ORDER BY IdLocations) AS RowNum
-#             FROM Locations
-#             WHERE (? IS NULL OR Ville = ?)
-#             AND (? IS NULL OR Commune = ?)
-#             AND (? IS NULL OR Nombre_de_pieces = ?)
-#             AND (? IS NULL OR Prix_mensuel >= ?)
-#             AND (? IS NULL OR Prix_mensuel <= ?)
-#         ) AS paginated
-#         WHERE RowNum BETWEEN ? AND ?
-#     """
-
-#     # Établir une connexion à la base de données
-#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-#     cur = conn.cursor()
-
-#     # Exécuter la requête SQL avec la pagination et les filtres
-#     cur.execute(query, (ville, ville, commune, commune, nombre_de_pieces, nombre_de_pieces,
-#                         prix_min, prix_min, prix_max, prix_max, (page - 1) * per_page + 1, page * per_page))
-
-#     loc_afi = cur.fetchall()
-#     cur.close()
-#     conn.close()
-
-#     # Obtenir le nombre total d'éléments (utile pour la pagination)
-#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-#     cur = conn.cursor()
-#     total = cur.execute("SELECT COUNT(*) FROM Locations WHERE (? IS NULL OR Ville = ?) AND (? IS NULL OR Commune = ?) AND (? IS NULL OR Nombre_de_pieces = ?) AND (? IS NULL OR Prix_mensuel >= ?) AND (? IS NULL OR Prix_mensuel <= ?)",
-#                         (ville, ville, commune, commune, nombre_de_pieces, nombre_de_pieces, prix_min, prix_min, prix_max, prix_max)).fetchone()[0]
-#     cur.close()
-#     conn.close()
-
-#     # Créer l'objet Pagination
-#     pagination = Pagination(page=page, per_page=per_page, total=total, record_name='locations', css_framework='bootstrap5')
-
-#     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
-
-
-
-
-
 
 
 ###############
@@ -137,7 +38,6 @@ app.config["SQL_SERVER_CONNECTION_STRING"] = """
 
 @app.route("/")
 def index():
-    
     return render_template("index.html")
 
 
@@ -209,7 +109,7 @@ def profile_maison_en_vente():
 
 
 #### loue_maison ###################
-
+############################### a ne pas suprime ###########################
 @app.route("/mise_en_location", methods=["GET", "POST"])
 def mise_en_location():
     if request.method == "POST":
@@ -275,6 +175,7 @@ def save_image_to_storage(image_file):
         image_file.save(filepath)
         return filepath  # Vous souhaiterez peut-être renvoyer une URL au lieu du chemin du fichier
 
+############################### a ne pas suprime ###########################
 
 @app.route("/profile_location")
 def profile_location():
@@ -318,6 +219,7 @@ def modifier_mise_en_location(IdLocations):
 
 @app.route("/supprimer_mise_en_location/<int:IdLocations>", methods=["GET", "POST"])
 def supprimer_mise_en_location(IdLocations):
+    
     IdLocations = int(IdLocations)
     connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
     cursor = connexion.cursor()
@@ -334,16 +236,13 @@ def supprimer_mise_en_location(IdLocations):
 def add_service():
     return render_template("/formulaire/ajoute/ajout_service.html")
 
-
 @app.route("/modifier_service")
 def modifier_service():
     return render_template("/formulaire/modifier/modifier_service.html")
 
-
 @app.route("/supprimer_service")
 def supprimer_service():
     return render_template("service.html")
-
 
 ######## connexion / inscription  ###########
 
