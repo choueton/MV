@@ -155,25 +155,27 @@
                             <h3>Mise en vente </h3>
                             <tr>
                                 <th scope="col"></th>
-                                <th scope="col">commune</th>
-                                <th scope="col">Type de maison</th>
-                                <th scope="col">Nombre de pieces</th>
+                                <th scope="col">Commune</th>
+                                <th scope="col">Type_de_maison</th>
+                                <th scope="col">Nombre_de_pieces</th>
                                 <th scope="col">prix</th>
                                 <th scope="col">action</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
+                            {% for tas in Mags %}
                             <tr>
-                                <th scope="row"></th>
-                                <td>Bingerville</td>
-                                <td>Duplex</td>
-                                <td>4</td>
-                                <td>XXXX</td>
+                                <td>{{ tas.Commune }}</td>
+                                <td>{{ tas.Type_de_maison }}</td>
+                                <td>{{ tas.Nombre_de_pieces }}</td>
+                                <td>{{ tas.prix }}</td>
                                 <td>
-                                    <a href="#" type="button" class="btn btn-warning">Modifier</a>
-                                    <a href="#" type="button" class="btn btn-danger">supprimer</a>
+                                    <a href="/modifier_mise_en_vente_maison/{{tas[0]}}" type="button" class="btn btn-warning">Modifier</a>
+                                    <a  href="/supprimer_mise_en_vente_maison/{{tas[0]}}" type="button" class="btn btn-danger" onclick="return('tu veux le supprimer vraiment')">Supprimer</a>
                                 </td>
-                            </tr>
+                            </tr> 
+                            {% endfor %}
+
                         </tbody>
                     </table>
                 </div>
@@ -184,7 +186,7 @@
                         <thead>
                             <h3>Mise en location </h3>
                             <tr>
-                                <th scope="col"></th>
+                                <!--<th scope="col">id</th>-->
                                 <th scope="col">Ville</th>
                                 <th scope="col">commune</th>
                                 <th scope="col">Nombre_de_pieces</th>
@@ -194,18 +196,20 @@
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
+                            {% for tas in locs %}
                             <tr>
-                                <th scope="row"></th>
-                                <td>Cocody</td>
-                                <td>Cocody</td>
-                                <td>2</td>
-                                <td>233</td>
-                                <td>10</td>
+                                <td>{{ tas.Ville }}</td>
+                                <td>{{ tas.Commune }}</td>
+                                <td>{{ tas.Nombre_de_pieces }}</td>
+                                <td>{{ tas.Prix_mensuel }}</td>
+                                <td>{{ tas.Caution }}</td>
                                 <td>
-                                    <a href="#" type="button" class="btn btn-warning">Modifier</a>
-                                    <a href="#" type="button" class="btn btn-danger">supprimer</a>
+                                    <a href="/modifier_mise_en_location/{{tas[0]}}" type="button" class="btn btn-warning">Modifier</a>
+                                    <a  href="/supprimer_mise_en_location/{{tas[0]}}" type="button" class="btn btn-danger" onclick="return('tu veux le supprimer vraiment')">Supprimer</a>
                                 </td>
-                            </tr>
+                            </tr> 
+                            {% endfor %}
+
                             </tbody>
                         </table>
                     </div>

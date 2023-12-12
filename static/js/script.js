@@ -336,72 +336,72 @@
 		 * @param {object} captcha - captcha object for validation
 		 * @return {boolean}
 		 */
-		function isValidated(elements, captcha) {
-			var results, errors = 0;
+		// function isValidated(elements, captcha) {
+		// 	var results, errors = 0;
 
-			if (elements.length) {
-				for (var j = 0; j < elements.length; j++) {
+		// 	if (elements.length) {
+		// 		for (var j = 0; j < elements.length; j++) {
 
-					var $input = $(elements[j]);
-					if ((results = $input.regula('validate')).length) {
-						for (k = 0; k < results.length; k++) {
-							errors++;
-							$input.siblings(".form-validation").text(results[k].message).parent().addClass("has-error");
-						}
-					} else {
-						$input.siblings(".form-validation").text("").parent().removeClass("has-error")
-					}
-				}
+		// 			var $input = $(elements[j]);
+		// 			if ((results = $input.regula('validate')).length) {
+		// 				for (k = 0; k < results.length; k++) {
+		// 					errors++;
+		// 					$input.siblings(".form-validation").text(results[k].message).parent().addClass("has-error");
+		// 				}
+		// 			} else {
+		// 				$input.siblings(".form-validation").text("").parent().removeClass("has-error")
+		// 			}
+		// 		}
 
-				if (captcha) {
-					if (captcha.length) {
-						return validateReCaptcha(captcha) && errors === 0
-					}
-				}
+		// 		if (captcha) {
+		// 			if (captcha.length) {
+		// 				return validateReCaptcha(captcha) && errors === 0
+		// 			}
+		// 		}
 
-				return errors === 0;
-			}
-			return true;
-		}
+		// 		return errors === 0;
+		// 	}
+		// 	return true;
+		// }
 
 		/**
 		 * @desc Validate google reCaptcha
 		 * @param {object} captcha - captcha object for validation
 		 * @return {boolean}
 		 */
-		function validateReCaptcha(captcha) {
-			var captchaToken = captcha.find('.g-recaptcha-response').val();
+		// function validateReCaptcha(captcha) {
+		// 	var captchaToken = captcha.find('.g-recaptcha-response').val();
 
-			if (captchaToken.length === 0) {
-				captcha
-				.siblings('.form-validation')
-				.html('Please, prove that you are not robot.')
-				.addClass('active');
-				captcha
-				.closest('.form-wrap')
-				.addClass('has-error');
+		// 	if (captchaToken.length === 0) {
+		// 		captcha
+		// 		.siblings('.form-validation')
+		// 		.html('Please, prove that you are not robot.')
+		// 		.addClass('active');
+		// 		captcha
+		// 		.closest('.form-wrap')
+		// 		.addClass('has-error');
 
-				captcha.on('propertychange', function () {
-					var $this = $(this),
-							captchaToken = $this.find('.g-recaptcha-response').val();
+		// 		captcha.on('propertychange', function () {
+		// 			var $this = $(this),
+		// 					captchaToken = $this.find('.g-recaptcha-response').val();
 
-					if (captchaToken.length > 0) {
-						$this
-						.closest('.form-wrap')
-						.removeClass('has-error');
-						$this
-						.siblings('.form-validation')
-						.removeClass('active')
-						.html('');
-						$this.off('propertychange');
-					}
-				});
+		// 			if (captchaToken.length > 0) {
+		// 				$this
+		// 				.closest('.form-wrap')
+		// 				.removeClass('has-error');
+		// 				$this
+		// 				.siblings('.form-validation')
+		// 				.removeClass('active')
+		// 				.html('');
+		// 				$this.off('propertychange');
+		// 			}
+		// 		});
 
-				return false;
-			}
+		// 		return false;
+		// 	}
 
-			return true;
-		}
+		// 	return true;
+		// }
 
 		/**
 		 * @desc Initialize Google reCaptcha

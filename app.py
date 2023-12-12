@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from flask_paginate import Pagination, get_page_parameter
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 app = Flask(__name__)
 
 UPLOAD_FOLDER = "uploads"
@@ -16,7 +17,7 @@ app.secret_key = "votre_clé_secrète"
 # Configuration de la connexion à SQL Server
 app.config["SQL_SERVER_CONNECTION_STRING"] = """
     Driver={SQL Server};
-    Server=DESKTOP-JK6D8G9\\SQLEXPRESS;
+    Server=DESKTOP-VJVVU51\\SQLEXPRESS;
     Database=MV;
     Trusted_Connection=yes;"""
 
@@ -140,19 +141,32 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/a_propos")
-def a_propos():
-    return render_template("/page/a_propos.html")
 
 
-@app.route("/service")
-def service():
-    return render_template("/page/service.html")
+# @app.route("/supprimer_mise_en_vente_maison/<int:IdMaison>", methods=["GET", "POST"])
+# def supprimer_mise_en_vente_maison(IdMaison):
+#     IdMaison = int(IdMaison)
+#     connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+#     cursor = connexion.cursor()
+#     app.config['SQL_SERVER'] = connexion
+#     cursor.execute('DELETE * FROM Locations WHERE IdMaison = ?', (IdMaison,))
+#     cursor.commit()
+#     cursor.close()
+    
+#     return redirect(url_for("profile_user"))
 
+# @app.route("/supprimer_mise_en_vente_maison/<int:IdMaison>", methods=["GET", "POST"])
+# def supprimer_mise_en_vente_maison(IdMaison):
+#     IdMaison = int(IdMaison)
+#     connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+#     cursor = connexion.cursor()
+#     app.config['SQL_SERVER'] = connexion
+#     cursor.execute('DELETE * FROM Maison WHERE IdMaison = ?', (IdMaison,))
+#     cursor.commit()
+#     cursor.close()
 
-@app.route("/achete_maison")
-def achete_maison():
-    return render_template("/page/achete_maison.html")
+#     flash(f'La Maison numéro {IdMaison} a été supprimé avec succès !', 'info')
+#     return redirect(url_for("supprimer_mise_en_vente_maison"))
 
 
 @app.route("/loue_maison", methods=['GET', 'POST'])
@@ -215,32 +229,9 @@ def contacte():
     return render_template("/page/contacte.html")
 
 
-############################################################################
-
-#### profile ###
 
 
-@app.route("/profile_user")
-def profile_user():
-    return render_template("/profile/profile_user.html")
 
-
-######## maison ###########
-
-
-@app.route("/mise_en_vente_maison")
-def add_mise_en_vente_maison():
-    return render_template("/formulaire/ajoute/mise_en_vente_maison.html")
-
-
-@app.route("/modifier_mise_en_vente_maison")
-def modifier_mise_en_vente_maison():
-    return render_template("/formulaire/modifier/modifier_mise_en_vente_maison.html")
-
-
-@app.route("/supprimer_mise_en_vente_maison")
-def supprimer_mise_en_vente_maison():
-    return
 
 
 @app.route("/profile_maison_en_vente")
@@ -316,22 +307,124 @@ def save_image_to_storage(image_file):
         return filepath  # Vous souhaiterez peut-être renvoyer une URL au lieu du chemin du fichier
 
 
+
 @app.route("/profile_location")
 def profile_location():
     return render_template("/profile/profile_location.html")
 
 
-@app.route("/modifier_mise_en_location")
-def modifier_mise_en_location():
-    return render_template("/formulaire/modifier/modifier_mise_en_location.html")
 
 
-@app.route("/supprimer_mise_en_location")
-def supprimer_mise_en_location():
-    return
+@app.route("/mise_en_location", methods=["GET", "POST"])
+def mise_en_location():
+    if request.method == "POST":
+        Ville = request.form["Ville"]
+        Commune = request.form["Commune"]
+        Nombre_de_pieces = request.form["Nombre_de_pieces"]
+        Prix_mensuel = request.form["Prix_mensuel"]
+        Caution = request.form["Caution"]
+        Avance = request.form["Avance"]
+        Descriptions = request.form["message"]
+        Type_de_maison = request.form["Type_de_maison"]
+        Statut_maison = request.form["Statut_maison"]
+        GPS = request.form["GPS"]
+
+        # Traitement des images
+        image_urls = []
+        if "myfiles[]" in request.files:
+            image_files = request.files.getlist("myfiles[]")
+            for image_file in image_files:
+                if image_file and allowed_file(image_file.filename):
+                    filename = secure_filename(image_file.filename)
+                    image_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                    image_file.save(image_path)
+                    image_urls.append(image_path)
+
+        connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+        cursor = connection.cursor()
+        cursor.execute(
+            """INSERT INTO Locations 
+                        (Ville, Commune, Nombre_de_pieces, Prix_mensuel, Caution, Avance, Descriptions, 
+                        Type_de_maison, Statut_maison, GPS, Image1)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                Ville,
+                Commune,
+                Nombre_de_pieces,
+                Prix_mensuel,
+                Caution,
+                Avance,
+                Descriptions,
+                Type_de_maison,
+                Statut_maison,
+                GPS,
+                ",".join(image_urls) if image_urls else None,
+            ),
+        )
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+        return redirect(url_for("profile_user"))
+
+    return render_template("/formulaire/ajoute/mise_en_location.html")
 
 
-######## service  ###########
+
+
+
+@app.route('/modifier_mise_en_location', methods=['POST','GET'])
+def modifier_mise_en_location(IdLocations):
+    
+    connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+    cursor = connexion.cursor()
+    app.config['SQL_SERVER'] = connexion
+    info_locs = cursor.execute('SELECT * FROM Locations WHERE IdLocations = ?', IdLocations)
+    locs = cursor.fetchall()
+    cursor.close()
+    
+    print(locs)
+    
+     # Récupérer les données du formulaire
+    if request.method == 'POST':
+        data = info_locs.fetchone()
+        Ville = request.form['Ville']
+        Commune = request.form['Commune']
+        Nombre_de_pieces = request.form['Nombre_de_pieces']
+        Caution = request.form['Caution']
+        Avance = request.form['Avance']
+        Descriptions = request.form['message']
+        Type_de_maison = request.form['Type_de_maison']
+        Statut_maison = request.form['Statut_maison']
+        GPS = request.form['GPS']
+        
+        cursor.execute("""UPDATE Locations SET Ville = ?, Commune = ?, Nombre_de_pieces = ?, Caution = ?, Avance = ?, Descriptions = ?, Statut_maison= ? Type_de_maison = ? GPS = ? WHERE IdLocations = ?""",
+                      ( Ville, Commune,Nombre_de_pieces,Caution,Avance,Descriptions,Type_de_maison,Statut_maison, GPS)) 
+        connexion.commit()
+        connexion.close()
+        
+        print(f"Ville: {Ville}, Commune: {Commune}, Nombre de pièces: {Nombre_de_pieces},Caution: {Caution}, Avance: {Avance}, Descriptions: {Descriptions},Type de maison: {Type_de_maison}, Statut maison: {Statut_maison}, GPS: {GPS}")
+        return redirect(url_for('modifier_mise_en_location'))
+    
+    return render_template('/formulaire/modifier/modifier_mise_en_location.html', data=data)
+
+
+
+
+
+@app.route("/supprimer_mise_en_location/<int:IdLocations>", methods=["GET", "POST"])
+def supprimer_mise_en_location(IdLocations):
+    IdLocations = int(IdLocations)
+    connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+    cursor = connexion.cursor()
+    app.config['SQL_SERVER'] = connexion
+    cursor.execute('DELETE * FROM Locations WHERE IdLocations = ?', (IdLocations,))
+    cursor.commit()
+    cursor.close()
+    
+    return redirect(url_for("profile_user"))
+
 
 
 @app.route("/ajout_service")
