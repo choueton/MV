@@ -211,6 +211,11 @@ def service():
 def a_propos():
     return render_template('/page/a_propos.html')
 
+
+@app.route('/mise_en_vente_maison')
+def add_mise_en_vente_maison():
+    return render_template('/formulaire/ajoute/mise_en_vente_maison.html')
+
 #### profile ###
 
 @app.route('/profile_user')
