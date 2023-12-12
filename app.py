@@ -141,34 +141,6 @@ def index():
     return render_template("index.html")
 
 
-
-
-# @app.route("/supprimer_mise_en_vente_maison/<int:IdMaison>", methods=["GET", "POST"])
-# def supprimer_mise_en_vente_maison(IdMaison):
-#     IdMaison = int(IdMaison)
-#     connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
-#     cursor = connexion.cursor()
-#     app.config['SQL_SERVER'] = connexion
-#     cursor.execute('DELETE * FROM Locations WHERE IdMaison = ?', (IdMaison,))
-#     cursor.commit()
-#     cursor.close()
-    
-#     return redirect(url_for("profile_user"))
-
-# @app.route("/supprimer_mise_en_vente_maison/<int:IdMaison>", methods=["GET", "POST"])
-# def supprimer_mise_en_vente_maison(IdMaison):
-#     IdMaison = int(IdMaison)
-#     connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
-#     cursor = connexion.cursor()
-#     app.config['SQL_SERVER'] = connexion
-#     cursor.execute('DELETE * FROM Maison WHERE IdMaison = ?', (IdMaison,))
-#     cursor.commit()
-#     cursor.close()
-
-#     flash(f'La Maison numéro {IdMaison} a été supprimé avec succès !', 'info')
-#     return redirect(url_for("supprimer_mise_en_vente_maison"))
-
-
 @app.route("/loue_maison", methods=['GET', 'POST'])
 def loue_maison():
     page = request.args.get(get_page_parameter(), type=int, default=1)
@@ -223,16 +195,13 @@ def loue_maison():
 
     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
 
+@app.route("/achete_maison")
+def achete_maison():
+    return render_template("/page/achete_maison.html")
 
 @app.route("/contacte")
 def contacte():
     return render_template("/page/contacte.html")
-
-
-
-
-
-
 
 @app.route("/profile_maison_en_vente")
 def profile_maison_en_vente():
@@ -307,11 +276,9 @@ def save_image_to_storage(image_file):
         return filepath  # Vous souhaiterez peut-être renvoyer une URL au lieu du chemin du fichier
 
 
-
 @app.route("/profile_location")
 def profile_location():
     return render_template("/profile/profile_location.html")
-
 
 @app.route('/modifier_mise_en_location', methods=['POST','GET'])
 def modifier_mise_en_location(IdLocations):
@@ -349,9 +316,6 @@ def modifier_mise_en_location(IdLocations):
     return render_template('/formulaire/modifier/modifier_mise_en_location.html', data=data)
 
 
-
-
-
 @app.route("/supprimer_mise_en_location/<int:IdLocations>", methods=["GET", "POST"])
 def supprimer_mise_en_location(IdLocations):
     IdLocations = int(IdLocations)
@@ -364,7 +328,7 @@ def supprimer_mise_en_location(IdLocations):
     
     return redirect(url_for("profile_user"))
 
-
+###########################################################################
 
 @app.route("/ajout_service")
 def add_service():
