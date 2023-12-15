@@ -19,13 +19,15 @@ app.config["UPLOAD_FOLDER1"] = UPLOAD_FOLDER1
 def allowed_file1(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 app.secret_key = "votre_clé_secrète"
 # Configuration de la connexion à SQL Server
 app.config["SQL_SERVER_CONNECTION_STRING"] = """
     Driver={SQL Server};
-    Server=DESKTOP-JK6D8G9\SQLEXPRESS;
+    Server=DESKTOP-6RB7ER5\SQLEXPRESS;
     Database=MV;
     Trusted_Connection=yes;"""
 
