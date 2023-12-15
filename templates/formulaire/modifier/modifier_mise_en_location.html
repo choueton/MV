@@ -1,90 +1,97 @@
 {% extends 'base.html' %}
 
 {% block enfant %}  
-    <section class="section novi-background bg-gray-100">
-        <div class=" justify-content-xl-between">
-            <div class="cell-xl-6 align-self-center container">
-                <div class="row">
-                <div class="col-lg-9 cell-inner">
-                    <div class="section-lg">
-                    <!-- RD Mailform-->
-                        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="">
-                            <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Modifier mise en location</span></h3>
-                            <div class="row row-10">
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-first-name">Ville</label>
-                                        <input class="form-input" id="contact-first-name" type="text" name="Ville" data-constraints="@Required" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-last-name">Commune</label>
-                                        <input class="form-input" id="contact-last-name" type="text" name="Commune" data-constraints="@Required">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-email">Nombre_de_pieces</label>
-                                        <input class="form-input" id="contact-email" type="number" name="Nombre_de_pieces" min="1" data-constraints="@Numeric">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer cs">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-email">Caution</label>
-                                        <input class="form-input" id="contact-email" type="INT" name="Caution" data-constraints="@Numeric" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer cs">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-email">Avance</label>
-                                        <input class="form-input" id="contact-email" type="INT" name="Avance" data-constraints="@Numeric" >
-                                    </div>
-                                </div>
-                                <div class="col-12 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-message">Descriptions</label>
-                                        <textarea class="form-input" id="contact-message" name="message" Required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-email">Type_de_maison</label>
-                                        <input class="form-input" id="contact-email" type="text" name="Type_de_maison" data-constraints="@Required">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-phone">Statut_maison</label>
-                                        <select class="form-input" id="contact-email" type="text" name="Statut_maison" data-constraints="@Required">
-                                            <option value="Libre">Libre</option>
-                                            <option value="Occuppée">Occuppée</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-phone">GPS</label>
-                                        <input class="form-input" id="contact-email" type="text" name="GPS" data-constraints="@Required" >
-                                    </div>
+<section class="section novi-background bg-gray-100">
+    <div class=" justify-content-xl-between">
+        <div class="cell-xl-6 align-self-center container">
+            <div class="row">
+            <div class="col-lg-9 cell-inner">
+                <div class="section-lg">
+                <!-- RD Mailform-->
+                    <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="{{ url_for('modifier_mise_en_location', IdLocations=location_data[0]) }}" enctype="multipart/form-data">
+                      <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Mise en location</span></h3>
+                        <div class="row row-10">
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-first-name">Ville</label>
+                                    <input class="form-input" id="contact-first-name" type="text" name="Ville" data-constraints="@Required" value="{{ location_data[1] }}" >
                                 </div>
                             </div>
                             <div class="col-md-6 wow-outer">
                                 <div class="form-wrap wow fadeSlideInUp">
-                                    <label for="myfile">Choisir un fichier:</label>
-                                    <input type="file" id="myfile" name="myfile"><br><br>
+                                    <label class="form-label-outside" for="contact-last-name">Commune</label>
+                                    <input class="form-input" id="contact-last-name" type="text" name="Commune" data-constraints="@Required" value="{{ location_data[2] }}">
                                 </div>
                             </div>
-                            <div class="group group-middle">
-                                <div class="wow-outer"> 
-                                    <button class="button button-primary button-winona wow slideInRight" type="submit">Confirmer</button>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-email">Nombre_de_pieces</label>
+                                    <input class="form-input" id="contact-email" type="number" name="Nombre_de_pieces" min="1" data-constraints="@Numeric" value="{{ location_data[3] }}">
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-email">Prix_mensuel</label>
+                                    <input class="form-input" id="contact-email" type="number" name="Prix_mensuel" min="1" data-constraints="@Numeric" value="{{ location_data[4] }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer cs">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-email">Caution</label>
+                                    <input class="form-input" id="contact-email" type="INT" name="Caution" data-constraints="@Numeric" value="{{ location_data[5] }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer cs">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-email">Avance</label>
+                                    <input class="form-input" id="contact-email" type="INT" name="Avance" data-constraints="@Numeric" value="{{ location_data[6] }}">
+                                </div>
+                            </div>
+                            <div class="col-12 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-message">Descriptions</label>
+                                    <textarea class="form-input" id="contact-message" name="message" Required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-email">Type_de_maison</label>
+                                    <input class="form-input" id="contact-email" type="text" name="Type_de_maison" data-constraints="@Required" value="{{ location_data[8] }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-phone">Statut_maison</label>
+                                    <select class="form-input" id="contact-email" type="text" name="Statut_maison" data-constraints="@Required">
+                                        <option value="Libre">{{ location_data[9] }}</option>
+                                        <option value="Libre">Libre</option>
+                                        <option value="Occuppée">Occuppée</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-phone">GPS</label>
+                                    <input class="form-input" id="contact-email" type="text" name="GPS" data-constraints="@Required" value="{{ location_data[10] }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label for="myfiles">Choisir des fichiers (jusqu'à 10):</label>
+                                <input type="file" id="myfiles" name="myfiles[]" multiple><br><br>                            
+                            </div>
+                        </div>
+                        <div class="group group-middle">
+                            <div class="wow-outer"> 
+                                <button class="button button-primary button-winona wow slideInRight" type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}

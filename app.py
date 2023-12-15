@@ -8,16 +8,26 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER1 = "uploads/location"
+UPLOAD_FOLDER = "uploads/venteimage"
+
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["UPLOAD_FOLDER1"] = UPLOAD_FOLDER1
+
+def allowed_file1(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 app.secret_key = "votre_clé_secrète"
 # Configuration de la connexion à SQL Server
 app.config["SQL_SERVER_CONNECTION_STRING"] = """
     Driver={SQL Server};
-    Server=DESKTOP-6RB7ER5\SQLEXPRESS;
+    Server=DESKTOP-JK6D8G9\SQLEXPRESS;
     Database=MV;
     Trusted_Connection=yes;"""
 
@@ -27,7 +37,7 @@ app.config["SQL_SERVER_CONNECTION_STRING"] = """
 
 ####################
 
-# La route doit être définie avant la fonction associée
+#La route doit être définie avant la fonction associée
 # @app.route("/loue_maison", methods=['GET', 'POST'])
 # def loue_maison():
 #     page = request.args.get(get_page_parameter(), type=int, default=1)
@@ -67,6 +77,140 @@ app.config["SQL_SERVER_CONNECTION_STRING"] = """
 #     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
 
 
+
+# @app.route("/loue_maison", methods=['GET', 'POST'])
+# def loue_maison():
+#     page = request.args.get(get_page_parameter(), type=int, default=1)
+
+#     # Définir le nombre d'éléments par page
+#     per_page = 4  # Vous pouvez ajuster cela en fonction de vos besoins
+
+#     # Récupérer les paramètres de filtre du formulaire
+#     ville = request.form.get('Ville')
+#     commune = request.form.get('Commune')
+#     nombre_de_pieces = request.form.get('Nombre_de_pieces')
+#     prix_min = request.form.get('Prix_min')
+#     prix_max = request.form.get('Prix_max')
+
+#     # Construire la requête SQL avec les paramètres de filtre
+#     query = """
+#         SELECT *
+#         FROM (
+#             SELECT *, ROW_NUMBER() OVER (ORDER BY IdLocations) AS RowNum
+#             FROM Locations
+#             WHERE (? IS NULL OR Ville = ?)
+#             AND (? IS NULL OR Commune = ?)
+#             AND (? IS NULL OR Nombre_de_pieces = ?)
+#             AND (? IS NULL OR Prix_mensuel >= ?)
+#             AND (? IS NULL OR Prix_mensuel <= ?)
+#         ) AS paginated
+#         WHERE RowNum BETWEEN ? AND ?
+#     """
+
+#     # Établir une connexion à la base de données
+#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+#     cur = conn.cursor()
+
+#     # Exécuter la requête SQL avec la pagination et les filtres
+#     cur.execute(query, (ville, ville, commune, commune, nombre_de_pieces, nombre_de_pieces,
+#                         prix_min, prix_min, prix_max, prix_max, (page - 1) * per_page + 1, page * per_page))
+
+#     loc_afi = cur.fetchall()
+#     cur.close()
+#     conn.close()
+
+#     # Obtenir le nombre total d'éléments (utile pour la pagination)
+#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+#     cur = conn.cursor()
+#     total = cur.execute("SELECT COUNT(*) FROM Locations WHERE (? IS NULL OR Ville = ?) AND (? IS NULL OR Commune = ?) AND (? IS NULL OR Nombre_de_pieces = ?) AND (? IS NULL OR Prix_mensuel >= ?) AND (? IS NULL OR Prix_mensuel <= ?)",
+#                         (ville, ville, commune, commune, nombre_de_pieces, nombre_de_pieces, prix_min, prix_min, prix_max, prix_max)).fetchone()[0]
+#     cur.close()
+#     conn.close()
+
+#     # Créer l'objet Pagination
+#     pagination = Pagination(page=page, per_page=per_page, total=total, record_name='locations', css_framework='bootstrap5')
+
+#     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
+
+###############
+
+@app.route("/loue_maison", methods=['GET', 'POST'])
+def loue_maison():
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+
+    # Définir le nombre d'éléments par page
+    per_page = 4  # Vous pouvez ajuster cela en fonction de vos besoins
+
+    # Récupérer les paramètres de filtre du formulaire
+    ville = request.form.get('Ville')
+    commune = request.form.get('Commune')
+    nombre_de_pieces = request.form.get('Nombre_de_pieces')
+    prix_min = request.form.get('Prix_mensuel')
+    prix_max = request.form.get('Prix_mensuel')
+
+    # Construire la requête SQL avec les paramètres de filtre
+    query = """
+        SELECT *
+        FROM (
+            SELECT *, ROW_NUMBER() OVER (ORDER BY IdLocations) AS RowNum
+            FROM Locations
+            WHERE (@ville IS NULL OR Ville = @ville)
+            AND (@commune IS NULL OR Commune = @commune)
+            AND (@nombre_de_pieces IS NULL OR Nombre_de_pieces = @nombre_de_pieces)
+            AND (@prix_min IS NULL OR Prix_mensuel >= @prix_min)
+            AND (@prix_max IS NULL OR Prix_mensuel <= @prix_max)
+        ) AS paginated
+        WHERE RowNum BETWEEN ? AND ?
+    """
+
+    # Établir une connexion à la base de données
+    conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+    cur = conn.cursor()
+
+    # Exécuter la requête SQL avec la pagination et les filtres
+    cur.execute(query, (ville, commune, nombre_de_pieces, prix_min, prix_max, (page - 1) * per_page + 1, page * per_page))
+
+    loc_afi = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    # Obtenir le nombre total d'éléments (utile pour la pagination)
+    conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+    cur = conn.cursor()
+    total_query = """
+        SELECT COUNT(*)
+        FROM Locations
+        WHERE (@ville IS NULL OR Ville = @ville)
+        AND (@commune IS NULL OR Commune = @commune)
+        AND (@nombre_de_pieces IS NULL OR Nombre_de_pieces = @nombre_de_pieces)
+        AND (@prix_min IS NULL OR Prix_mensuel >= @prix_min)
+        AND (@prix_max IS NULL OR Prix_mensuel <= @prix_max)
+    """
+    total = cur.execute(total_query, (ville, commune, nombre_de_pieces, prix_min, prix_max)).fetchone()[0]
+    cur.close()
+    conn.close()
+
+    # Créer l'objet Pagination
+    pagination = Pagination(page=page, per_page=per_page, total=total, record_name='locations', css_framework='bootstrap5')
+
+    return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
+
+#################################################################
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+# @app.route("/loue_maison", methods=['GET', 'POST'])
+# def loue_maison():
+#     connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+#     cursor = connection.cursor()
+#     cursor.execute("SELECT * FROM Locations")
+#     location = cursor.fetchall()
+#     connection.close()
+#     return render_template("/page/loue_maison.html", Loc=location)
 
 # @app.route("/loue_maison", methods=['GET', 'POST'])
 # def loue_maison():
@@ -122,79 +266,6 @@ app.config["SQL_SERVER_CONNECTION_STRING"] = """
 
 #     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
 
-
-
-
-
-
-
-###############
-
-
-
-#################################################################
-
-
-@app.route("/")
-def index():
-    
-    return render_template("index.html")
-
-
-@app.route("/loue_maison", methods=['GET', 'POST'])
-def loue_maison():
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-
-    # Définir le nombre d'éléments par page
-    per_page = 4  # Vous pouvez ajuster cela en fonction de vos besoins
-
-    # Récupérer les paramètres de filtre du formulaire
-    ville = request.form.get('Ville')
-    commune = request.form.get('Commune')
-    nombre_de_pieces = request.form.get('Nombre_de_pieces')
-    prix_min = request.form.get('Prix_mensuel')
-    prix_max = request.form.get('Prix_mensuel')
-
-    # Construire la requête SQL avec les paramètres de filtre
-    query = """
-        SELECT *
-        FROM (
-            SELECT *, ROW_NUMBER() OVER (ORDER BY IdLocations) AS RowNum
-            FROM Locations
-            WHERE (? IS NULL OR Ville = ?)
-            AND (? IS NULL OR Commune = ?)
-            AND (? IS NULL OR Nombre_de_pieces = ?)
-            AND (? IS NULL OR Prix_mensuel >= ?)
-            AND (? IS NULL OR Prix_mensuel <= ?)
-        ) AS paginated
-        WHERE RowNum BETWEEN ? AND ?
-    """
-
-    # Établir une connexion à la base de données
-    conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-    cur = conn.cursor()
-
-    # Exécuter la requête SQL avec la pagination et les filtres
-    cur.execute(query, (ville, ville, commune, commune, nombre_de_pieces, nombre_de_pieces,
-                        prix_min, prix_min, prix_max, prix_max, (page - 1) * per_page + 1, page * per_page))
-
-    loc_afi = cur.fetchall()
-    cur.close()
-    conn.close()
-
-    # Obtenir le nombre total d'éléments (utile pour la pagination)
-    conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-    cur = conn.cursor()
-    total = cur.execute("SELECT COUNT(*) FROM Locations WHERE (? IS NULL OR Ville = ?) AND (? IS NULL OR Commune = ?) AND (? IS NULL OR Nombre_de_pieces = ?) AND (? IS NULL OR Prix_mensuel >= ?) AND (? IS NULL OR Prix_mensuel <= ?)",
-                        (ville, ville, commune, commune, nombre_de_pieces, nombre_de_pieces, prix_min, prix_min, prix_max, prix_max)).fetchone()[0]
-    cur.close()
-    conn.close()
-
-    # Créer l'objet Pagination
-    pagination = Pagination(page=page, per_page=per_page, total=total, record_name='locations', css_framework='bootstrap5')
-
-    return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
-
 @app.route("/achete_maison")
 def achete_maison():
     return render_template("/page/achete_maison.html")
@@ -211,16 +282,24 @@ def service():
 def a_propos():
     return render_template('/page/a_propos.html')
 
-
-@app.route('/mise_en_vente_maison')
-def add_mise_en_vente_maison():
-    return render_template('/formulaire/ajoute/mise_en_vente_maison.html')
-
 #### profile ###
 
 @app.route('/profile_user')
 def profile_user():
-    return render_template('/profile/profile_user.html')
+    IdUtilisateur = session.get('IdUtilisateur')
+
+    connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Utilisateur WHERE IdUtilisateur=?", (IdUtilisateur,))
+    utilisateur_info = cursor.fetchone()
+    cursor.execute("SELECT * FROM Locations WHERE IdUtilisateur=?", (IdUtilisateur,))
+    loc = cursor.fetchall()
+    cursor.execute("SELECT * FROM Maison WHERE IdUtilisateur=?", (IdUtilisateur,))
+    mvm = cursor.fetchall()
+    connection.close()
+
+    return render_template('/profile/profile_user.html', utilisateur_info=utilisateur_info, loc=loc, mvm=mvm)
+
 
 ######## maison ###########
 
@@ -228,11 +307,198 @@ def profile_user():
 def profile_maison_en_vente():
     return render_template("/profile/profile_maison.html")
 
+@app.route("/mise_en_vente_maison", methods=["GET", "POST"])
+def mise_en_vente_maison():
+    if request.method == "POST":
+        Ville = request.form["Ville"]
+        Commune = request.form["Commune"]
+        Nombre_de_pieces = request.form["Nombre_de_pieces"]
+        Prix_unitaire = request.form["Prix_unitaire"]
+        Descriptions = request.form["message"]
+        Type_de_maison = request.form["Type_de_maison"]
+        Statut_maison = request.form["Statut_maison"]
+        GPS = request.form["GPS"]
+        IdUtilisateur = session.get('IdUtilisateur')
+
+        # Traitement des images
+        image_urls = []
+        if "myfiles[]" in request.files:
+            image_files = request.files.getlist("myfiles[]")
+            for image_file in image_files:
+                if image_file and allowed_file(image_file.filename):
+                    filename = secure_filename(image_file.filename)
+                    image_path = os.path.join(app.config["UPLOAD_FOLDER1"], filename)
+                    image_file.save(image_path)
+                    image_urls.append(image_path)
+
+        connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+        cursor = connection.cursor()
+
+        # Correction de la requête SQL
+        cursor.execute("""
+            INSERT INTO Maison 
+                (IdUtilisateur, Ville, Commune, Nombre_de_pieces, Prix_unitaire, Descriptions, 
+                Type_de_maison, Statut_maison, GPS, Image1)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            IdUtilisateur,
+            Ville,
+            Commune,
+            Nombre_de_pieces,
+            Prix_unitaire,
+            Descriptions,
+            Type_de_maison,
+            Statut_maison,
+            GPS,
+            ",".join(image_urls) if image_urls else None,
+        ))
+        
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+        return redirect(url_for("profile_user"))
+
+    return render_template("/formulaire/ajoute/mise_en_vente_maison.html")
+
+@app.route("/modifier_mise_en_vente_maison/<int:IdMaison>", methods=["GET", "POST"])
+def modifier_mise_en_vente_maison(IdMaison):
+
+    # Fetch existing data to pre-fill the form
+    connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Maison WHERE IdMaison=?", (IdMaison,))
+    Maison_data = cursor.fetchone()
+    cursor.close()
+    connection.close()
+
+    if request.method == "POST":
+        Ville = request.form["Ville"]
+        Commune = request.form["Commune"]
+        Nombre_de_pieces = request.form["Nombre_de_pieces"]
+        Prix_unitaire = request.form["Prix_unitaire"]
+        Descriptions = request.form["message"]
+        Type_de_maison = request.form["Type_de_maison"]
+        Statut_maison = request.form["Statut_maison"]
+        GPS = request.form["GPS"]
+
+        # Traitement des images
+        image_urls = []
+        if "myfiles[]" in request.files:
+            image_files = request.files.getlist("myfiles[]")
+            for image_file in image_files:
+                if image_file and allowed_file(image_file.filename):
+                    filename = secure_filename(image_file.filename)
+                    image_path = os.path.join(app.config["UPLOAD_FOLDER1"], filename)
+                    image_file.save(image_path)
+                    image_urls.append(image_path)
+
+        connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+        cursor = connection.cursor()
+
+        # Correction de la requête SQL
+        cursor.execute(
+            """UPDATE Maison 
+               SET Ville=?, Commune=?, Nombre_de_pieces=?, Prix_unitaire=?, Descriptions=?, 
+                   Type_de_maison=?, Statut_maison=?, GPS=?, Image1=?
+               WHERE IdMaison=?""", 
+        (
+            Ville,
+            Commune,
+            Nombre_de_pieces,
+            Prix_unitaire,
+            Descriptions,
+            Type_de_maison,
+            Statut_maison,
+            GPS,
+            ",".join(image_urls) if image_urls else None,
+            IdMaison,
+        ))
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+        return redirect(url_for("profile_user"))
+
+    return render_template("/formulaire/modifier/modifier_mise_en_vente_maison.html", Maison_data=Maison_data)
+
+@app.route("/supprimer_mise_en_vente_maison/<int:IdMaison>", methods=["GET", "POST"])
+def supprimer_mise_en_vente_maison(IdMaison):
+    connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+    cursor = connexion.cursor()
+    app.config['SQL_SERVER'] = connexion
+    cursor.execute('DELETE FROM Maison WHERE IdMaison = ?', (IdMaison,))
+    cursor.commit()
+    cursor.close()
+    return redirect(url_for("profile_user"))
 
 #### loue_maison ###################
 
 @app.route("/mise_en_location", methods=["GET", "POST"])
 def mise_en_location():
+    if request.method == "POST":
+        Ville = request.form["Ville"]
+        Commune = request.form["Commune"]
+        Nombre_de_pieces = request.form["Nombre_de_pieces"]
+        Prix_mensuel = request.form["Prix_mensuel"]
+        Caution = request.form["Caution"]
+        Avance = request.form["Avance"]
+        Descriptions = request.form["message"]
+        Type_de_maison = request.form["Type_de_maison"]
+        Statut_maison = request.form["Statut_maison"]
+        GPS = request.form["GPS"]
+        IdUtilisateur = session.get('IdUtilisateur')
+
+        # Traitement des images
+        image_urls = []
+        if "myfiles[]" in request.files:
+            image_files = request.files.getlist("myfiles[]")
+            for image_file in image_files:
+                if image_file and allowed_file(image_file.filename):
+                    filename = secure_filename(image_file.filename)
+                    image_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                    image_file.save(image_path)
+                    image_urls.append(image_path)
+
+        connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+        cursor = connection.cursor()
+        cursor.execute(
+            """INSERT INTO Locations 
+                        (IdUtilisateur, Ville, Commune, Nombre_de_pieces, Prix_mensuel, Caution, Avance, Descriptions, 
+                        Type_de_maison, Statut_maison, GPS, Image1)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                IdUtilisateur,
+                Ville,
+                Commune,
+                Nombre_de_pieces,
+                Prix_mensuel,
+                Caution,
+                Avance,
+                Descriptions,
+                Type_de_maison,
+                Statut_maison,
+                GPS,
+                ",".join(image_urls) if image_urls else None,
+            ),
+        )
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+        return redirect(url_for("profile_user"))
+
+    return render_template("/formulaire/ajoute/mise_en_location.html")
+
+@app.route("/profile_location")
+def profile_location():
+    return render_template("/profile/profile_location.html")
+
+@app.route("/modifier_mise_en_location/<int:IdLocations>", methods=["GET", "POST"])
+def modifier_mise_en_location(IdLocations):
+    
     if request.method == "POST":
         Ville = request.form["Ville"]
         Commune = request.form["Commune"]
@@ -258,11 +524,12 @@ def mise_en_location():
 
         connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
         cursor = connection.cursor()
+
         cursor.execute(
-            """INSERT INTO Locations 
-                        (Ville, Commune, Nombre_de_pieces, Prix_mensuel, Caution, Avance, Descriptions, 
-                        Type_de_maison, Statut_maison, GPS, Image1)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            """UPDATE Locations 
+               SET Ville=?, Commune=?, Nombre_de_pieces=?, Prix_mensuel=?, Caution=?, Avance=?, Descriptions=?, 
+                   Type_de_maison=?, Statut_maison=?, GPS=?, Image1=?
+               WHERE IdLocations=?""",
             (
                 Ville,
                 Commune,
@@ -275,6 +542,7 @@ def mise_en_location():
                 Statut_maison,
                 GPS,
                 ",".join(image_urls) if image_urls else None,
+                IdLocations,
             ),
         )
 
@@ -284,69 +552,24 @@ def mise_en_location():
 
         return redirect(url_for("profile_user"))
 
-    return render_template("/formulaire/ajoute/mise_en_location.html")
-
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def save_image_to_storage(image_file):
-    if image_file and allowed_file(image_file.filename):
-        filename = secure_filename(image_file.filename)
-        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        image_file.save(filepath)
-        return filepath  # Vous souhaiterez peut-être renvoyer une URL au lieu du chemin du fichier
-
-
-@app.route("/profile_location")
-def profile_location():
-    return render_template("/profile/profile_location.html")
-
-@app.route('/modifier_mise_en_location', methods=['POST','GET'])
-def modifier_mise_en_location(IdLocations):
-    
-    connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
-    cursor = connexion.cursor()
-    app.config['SQL_SERVER'] = connexion
-    info_locs = cursor.execute('SELECT * FROM Locations WHERE IdLocations = ?', IdLocations)
-    locs = cursor.fetchall()
+    # Fetch existing data to pre-fill the form
+    connection = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Locations WHERE IdLocations=?", (IdLocations,))
+    location_data = cursor.fetchone()
     cursor.close()
-    
-    print(locs)
-    
-     # Récupérer les données du formulaire
-    if request.method == 'POST':
-        data = info_locs.fetchone()
-        Ville = request.form['Ville']
-        Commune = request.form['Commune']
-        Nombre_de_pieces = request.form['Nombre_de_pieces']
-        Caution = request.form['Caution']
-        Avance = request.form['Avance']
-        Descriptions = request.form['message']
-        Type_de_maison = request.form['Type_de_maison']
-        Statut_maison = request.form['Statut_maison']
-        GPS = request.form['GPS']
-        
-        cursor.execute("""UPDATE Locations SET Ville = ?, Commune = ?, Nombre_de_pieces = ?, Caution = ?, Avance = ?, Descriptions = ?, Statut_maison= ? Type_de_maison = ? GPS = ? WHERE IdLocations = ?""",
-                      ( Ville, Commune,Nombre_de_pieces,Caution,Avance,Descriptions,Type_de_maison,Statut_maison, GPS)) 
-        connexion.commit()
-        connexion.close()
-        
-        print(f"Ville: {Ville}, Commune: {Commune}, Nombre de pièces: {Nombre_de_pieces},Caution: {Caution}, Avance: {Avance}, Descriptions: {Descriptions},Type de maison: {Type_de_maison}, Statut maison: {Statut_maison}, GPS: {GPS}")
-        return redirect(url_for('modifier_mise_en_location'))
-    
-    return render_template('/formulaire/modifier/modifier_mise_en_location.html', data=data)
+    connection.close()
 
+    return render_template("/formulaire/modifier/modifier_mise_en_location.html", location_data=location_data)
 
 @app.route("/supprimer_mise_en_location/<int:IdLocations>", methods=["GET", "POST"])
 def supprimer_mise_en_location(IdLocations):
-    IdLocations = int(IdLocations)
     connexion = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
     cursor = connexion.cursor()
     app.config['SQL_SERVER'] = connexion
-    cursor.execute('DELETE * FROM Locations WHERE IdLocations = ?', (IdLocations,))
+    cursor.execute('DELETE FROM Locations WHERE IdLocations = ?', (IdLocations,))
     cursor.commit()
     cursor.close()
-    
     return redirect(url_for("profile_user"))
 
 ###########################################################################
@@ -382,8 +605,10 @@ def connexion():
         user = cursor.fetchone()
 
         if user and check_password_hash(user.Mot_de_pass, password):  # Accès au mot de passe directement par le nom de colonne
-            session['user_id'] = user.IdUtilisateur
+            session['IdUtilisateur'] = user.IdUtilisateur
+            print(session['IdUtilisateur'])
             session['user'] = user.Email
+            print(session['IdUtilisateur'])
             return redirect(url_for('index'))
         else:
             print('Mauvaise adresse e-mail ou mot de passe.')

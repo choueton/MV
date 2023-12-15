@@ -84,6 +84,17 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+.imge{
+	display: flex;
+	justify-content: space-between;
+}
+
+.preview-image{
+	height:200px;
+	width:200px;
+	margin-right: 10px;
+}
+
 /* fin moi */
 a:focus,
 button:focus {
