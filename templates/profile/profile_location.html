@@ -1,87 +1,65 @@
 {% extends 'base.html' %}
 
 {% block enfant %}
-
-
-<div class="container" style="width:900px;padding-top: 50px;">
-    <div class="page-title-wrap">
-        <div class="container">
-            <div class="d-flex align-items-center">
-                
-    <div class="breadcrumb-wrap">
-        <nav>
-            <ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://moboo.ci/"><span>Accueil</span></a></li><li class="breadcrumb-item"><a href="https://moboo.ci/Type%20de%20bien/duplex/"> <span>Duplex</span></a></li><li class="breadcrumb-item active">VIlla duplex 5 pieces</li></ol>	</nav>
-    </div><!-- breadcrumb-wrap -->            <ul class="item-tools">
-    
-            <li class="item-tool houzez-favorite">
-            <span class="add-favorite-js item-tool-favorite" data-listid="25024">
-                <i class="houzez-icon icon-love-it "></i>
-            </span><!-- item-tool-favorite -->
-        </li><!-- item-tool -->
-        
-            <li class="item-tool houzez-share">
-            <span class="item-tool-share dropdown-toggle" data-toggle="dropdown">
-                <i class="houzez-icon icon-share"></i>
-            </span><!-- item-tool-favorite -->
-            <div class="dropdown-menu dropdown-menu-right item-tool-dropdown-menu">
-                
-    <a class="dropdown-item" target="_blank" href="https://api.whatsapp.com/send?text=VIlla+duplex+5+pieces&nbsp;https%3A%2F%2Fmoboo.ci%2Fbien%2Fvilla-duplex-5-pieces%2F">
-        <i class="houzez-icon icon-messaging-whatsapp mr-1"></i> WhatsApp</a>
-    
-    <a class="dropdown-item" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fmoboo.ci%2Fbien%2Fvilla-duplex-5-pieces%2F&amp;t=VIlla+duplex+5+pieces" onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
-        <i class="houzez-icon icon-social-media-facebook mr-1"></i> Facebook
-    </a>
-    <a class="dropdown-item" href="https://twitter.com/intent/tweet?text=VIlla+duplex+5+pieces&amp;url=https%3A%2F%2Fmoboo.ci%2Fbien%2Fvilla-duplex-5-pieces%2F&amp;via=Moboo" onclick="if(!document.getElementById('td_social_networks_buttons')){window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;}">
-        <i class="houzez-icon icon-social-media-twitter mr-1"></i> Twitter
-    </a>
-    <a class="dropdown-item" href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fmoboo.ci%2Fbien%2Fvilla-duplex-5-pieces%2F&amp;media=https://i0.wp.com/moboo.ci/wp-content/uploads/2023/07/WhatsApp-Image-2023-06-19-at-14.13.30.jpeg?fit=1040%2C780&amp;ssl=1" onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
-        <i class="houzez-icon icon-social-pinterest mr-1"></i> Pinterest
-    </a>
-    <a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fmoboo.ci%2Fbien%2Fvilla-duplex-5-pieces%2F&amp;title=VIlla+duplex+5+pieces&amp;source=https%3A%2F%2Fmoboo.ci%2F" onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
-        <i class="houzez-icon icon-professional-network-linkedin mr-1"></i> LinkedIn
-    </a>
-    <a class="dropdown-item" href="mailto:someone@example.com?Subject=VIlla duplex 5 pieces&amp;body=https%3A%2F%2Fmoboo.ci%2Fbien%2Fvilla-duplex-5-pieces%2F">
-        <i class="houzez-icon icon-envelope mr-1"></i>Email
-    </a>        </div>
-        </li><!-- item-tool -->
-        
-            <li class="item-tool houzez-print " data-propid="25024">
-            <span class="item-tool-compare">
-                <i class="houzez-icon icon-print-text"></i>
-            </span><!-- item-tool-compare -->
-        </li><!-- item-tool -->
-        </ul><!-- item-tools --> 
-            </div><!-- d-flex -->
-            <div class="d-flex align-items-center property-title-price-wrap">
-                <div class="page-title">
-        <h1>VIlla duplex 5 pieces</h1>
-    </div><!-- page-title -->            <ul class="item-price-wrap hide-on-list">
-        <li class="item-price">400.000FCFA</li><li class="item-sub-price">350.000FCFA</li></ul>        </div><!-- d-flex -->
-            <div class="property-labels-wrap">
-            <a href="https://moboo.ci/statut/a-louer/" class="label-status label status-color-220">
-                    A louer
-                </a>        </div>
-            <address class="item-address"><i class="houzez-icon icon-pin mr-1"></i>bigerville anan</address>    </div><!-- container -->
+<section class="section novi-background section-md text-center">
+    <div class = "main-wrapper">
+        <div class = "container">
+            <div class = "product-div">
+                <div class = "product-div-left">
+                    <div id="carouselExampleIndicators" class="carousel slide">
+                        <div class="carousel-indicators">
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="static/images/grid-blog-1-571x353.jpg" class="d-block w-100" alt="static/images/grid-blog-2-571x353.jpg">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="static/images/grid-blog-2-571x353.jpg" class="d-block w-100" alt="static/images/grid-blog-2-571x353.jpg">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="static/images/grid-blog-3-571x353.jpg" class="d-block w-100" alt="static/images/grid-blog-2-571x353.jpg">
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <!-- <div class = "hover-container">
+                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
+                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
+                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
+                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
+                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
+                    </div> -->
+                </div>
+                <div class = "product-div-right">
+                    <span class = "product-name">(New) Villa - 3 Pieces</span>
+                    <span class = "product-price">1500000000fcfa</span>
+                    <div class = "product-rating">
+                        <span><i class = "fas fa-star"></i></span>
+                        <span><i class = "fas fa-star"></i></span>
+                        <span><i class = "fas fa-star"></i></span>
+                        <span><i class = "fas fa-star"></i></span>
+                        <span><i class = "fas fa-star-half-alt"></i></span>
+                        <span>(350 ratings)</span>
+                    </div>
+                    <p class = "product-description">Une propriété résidentielle confortable située dans un quartier calme et chaleureux.</p>
+                    <div class = "btn-groups">
+                        <button type = "button" class = "add-cart-btn"><i class = "fas fa-shopping-cart"></i>add to cart</button>
+                        <button type = "button" class = "buy-now-btn"><i class = "fas fa-wallet"></i>buy now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="row">
-      <div class="col-6"><div class="plate">col-6 (L 50%)<img class="card-img" src="static/images/grid-blog-1-571x353.jpg" alt=""></div><br>
-       <div class="row">
-      <div class="col-6"><div class="plate">col-6 (L 50%)<img class="card-img" src="static/images/grid-blog-1-571x353.jpg" alt=""></div></div>
-      <div class="col-6"><div class="plate">col-6 (L 50%)<img class="card-img" src="static/images/grid-blog-1-571x353.jpg" alt=""></div></div>
-      </div>
-      </div>
-      <div class="col-6"><div class="plate">col-6 (R 50%)<img class="card-img" src="static/images/gallery-original-1.jpg" alt=""></div><br>
-      <div class="row">
-      <div class="col-6"><div class="plate">R 50%<img class="card-img" src="static/images/gallery-original-2.jpg" alt=""></div></div>
-      <div class="col-6"><div class="plate">R 50%<img class="card-img" src="static/images/gallery-original-4.jpg" alt=""></div></div>
-      </div><br>
-
-
-      </div> 
-      
-    </div>
-
-</div>
+</section>
 
 {% endblock %}
