@@ -8,7 +8,7 @@
                 <div class="col-lg-9 cell-inner">
                     <div class="section-lg">
                     <!-- RD Mailform-->
-                        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="">
+                        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/mise_en_vente_maison" enctype="multipart/form-data">
                             <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Mise en vente de maisons</span></h3>
                             <div class="row row-10">
                                 <div class="col-md-6 wow-outer">
@@ -31,12 +31,12 @@
                                 </div>
                                 <div class="form-wrap wow fadeSlideInUp">
                                     <label class="form-label-outside" for="contact-email">Prix unitaire</label>
-                                    <input class="form-input" id="contact-email" type="INT" name="Prix unitaire" data-constraints="@Numeric" >
+                                    <input class="form-input" id="contact-email" type="INT" name="Prix_unitaire" data-constraints="@Numeric" >
                                 </div>
                                 <div class="col-12 wow-outer">
                                     <div class="form-wrap wow fadeSlideInUp">
                                         <label class="form-label-outside" for="contact-message">Descriptions</label>
-                                        <textarea class="form-input" id="contact-message" name="message" Required></textarea>
+                                        <textarea class="form-input" id="contact-message" name="message" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6 wow-outer">
@@ -63,13 +63,13 @@
                             </div>
                             <div class="col-md-6 wow-outer">
                                 <div class="form-wrap wow fadeSlideInUp">
-                                    <label for="myfile">Choisir un fichier:</label>
-                                    <input type="file" id="myfile" name="myfile"><br><br>
+                                    <label for="myfiles">Choisir des fichiers (jusqu'à 10):</label>
+                                    <input type="file" class="form-control form-control-lg" id="myfiles" name="myfiles[]" multiple required/><br><br>                            
                                 </div>
                             </div>
                             <div class="group group-middle">
                                 <div class="wow-outer"> 
-                                    <button class="button button-primary button-winona wow slideInRight" type="submit">Send Message</button>
+                                    <button class="button button-primary button-winona wow slideInRight" type="submit">Ajout maison</button>
                                 </div>
                             </div>
                         </form>
