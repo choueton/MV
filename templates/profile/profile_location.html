@@ -2,64 +2,63 @@
 
 {% block enfant %}
 <section class="section novi-background section-md text-center">
-    <div class = "main-wrapper">
-        <div class = "container">
-            <div class = "product-div">
-                <div class = "product-div-left">
-                    <div id="carouselExampleIndicators" class="carousel slide">
-                        <div class="carousel-indicators">
-                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                          <div class="carousel-item active">
-                            <img src="static/images/grid-blog-1-571x353.jpg" class="d-block w-100" alt="static/images/grid-blog-2-571x353.jpg">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="static/images/grid-blog-2-571x353.jpg" class="d-block w-100" alt="static/images/grid-blog-2-571x353.jpg">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="static/images/grid-blog-3-571x353.jpg" class="d-block w-100" alt="static/images/grid-blog-2-571x353.jpg">
-                          </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                    <!-- <div class = "hover-container">
-                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
-                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
-                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
-                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
-                        <div><img src = "static/images/grid-blog-2-571x353.jpg"></div>
-                    </div> -->
-                </div>
-                <div class = "product-div-right">
-                    <span class = "product-name">(New) Villa - 3 Pieces</span>
-                    <span class = "product-price">1500000000fcfa</span>
-                    <div class = "product-rating">
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star"></i></span>
-                        <span><i class = "fas fa-star-half-alt"></i></span>
-                        <span>(350 ratings)</span>
-                    </div>
-                    <p class = "product-description">Une propriété résidentielle confortable située dans un quartier calme et chaleureux.</p>
-                    <div class = "btn-groups">
-                        <button type = "button" class = "add-cart-btn"><i class = "fas fa-shopping-cart"></i>add to cart</button>
-                        <button type = "button" class = "buy-now-btn"><i class = "fas fa-wallet"></i>buy now</button>
-                    </div>
-                </div>
+  <div class="main-wrapper">
+    <div class="container">
+      <div class="product-div">
+        <div class="product-div-left">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              {% for index in range(image|length) %}
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ index }}" {% if index == 0 %}class="active"{% endif %}></button>
+              {% endfor %}
             </div>
+            <div class="carousel-inner">
+              {% for img in image %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                  <img src="{{ url_for('static', filename=img.lstrip('/static/')) }}" class="d-block w-100" alt="{{ img }}">
+                </div>
+              {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="hover-container">
+            {% for img in image %}
+            <div><img src = "{{ url_for('static', filename=img.lstrip('/static/')) }}"></div>
+            {% endfor %}
+          </div>
         </div>
+        <div class="product-div-right text-start">
+
+          <span class="product-name">Ville:{{row.Ville}},Commune:{{row.Commune}} </span>
+          <span class="product-price">Prix_mensuel:{{row.Prix_mensuel}}</span>
+          <span class="product-price">Caution:{{row.Caution}}</span>
+          <span class="product-price">Avance:{{row.Avance}}</span>
+          <span class="product-price">Type_de_maison:{{row.Type_de_maison}}</span>
+          <span class="product-price">GPS:{{row.GPS}}</span>
+          <div class="product-rating">
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star-half-alt"></i></span>
+            <span>(350 ratings)</span>
+          </div>
+          <p class="">{{row.Descriptions|add_line_breaks(55)}}</p>
+          <div class="btn-groups">
+            <button type="button" class="add-cart-btn"><i class="fas fa-shopping-cart"></i>add to cart</button>
+            <button type="button" class="buy-now-btn"><i class="fas fa-wallet"></i>buy now</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 {% endblock %}

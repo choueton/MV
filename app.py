@@ -27,153 +27,33 @@ app.secret_key = "votre_clé_secrète"
 # Configuration de la connexion à SQL Server
 app.config["SQL_SERVER_CONNECTION_STRING"] = """
     Driver={SQL Server};
-    Server=DESKTOP-6RB7ER5\SQLEXPRESS;
+    Server=DESKTOP-JK6D8G9\SQLEXPRESS;
     Database=MV;
     Trusted_Connection=yes;"""
 
 
 ###################################
+@app.template_filter('add_line_breaks')
+def add_line_breaks(s, width):
 
-def print_query(query, params):
-    print("Query:", query)
-    print("Params:", params)
+    """
+    Ajoutez des sauts de ligne à une chaîne après une largeur spécifiée.
 
-# @app.route('/loue_maison', methods=['GET', 'POST'])
-# def loue_maison():
-#     # Connexion à la base de données
-#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-#     cursor = conn.cursor()
+    Parameters:
+    - s (str): Input string.
+    - width (int): Maximum width before line break.
 
-#     # Récupération de la page actuelle depuis l'URL
-#     page = request.args.get(get_page_parameter(), type=int, default=1)
-
-#     # Nombre d'éléments à afficher par page
-#     per_page = 5
-
-#     # Définition des filtres
-#     ville = request.form.get('Ville')
-#     commune = request.form.get('Commune')
-#     nombre_de_pieces = request.form.get('Nombre_de_pieces')
-#     prix_min = request.form.get('Prix_min')
-#     prix_max = request.form.get('Prix_max')
-
-#     # Construction de la requête SQL en fonction des filtres
-#     query_count = "SELECT COUNT(*) FROM Locations WHERE 1=1"
-#     params_count = []
-
-#     if ville:
-#         query_count += " AND Ville = ?"
-#         params_count.append(ville)
-#     if commune:
-#         query_count += " AND Commune = ?"
-#         params_count.append(commune)
-#     if nombre_de_pieces:
-#         query_count += " AND Nombre_de_pieces = ?"
-#         params_count.append(nombre_de_pieces)
-#     if prix_min:
-#         query_count += " AND Prix_mensuel >= ?"
-#         params_count.append(prix_min)
-#     if prix_max:
-#         query_count += " AND Prix_mensuel <= ?"
-#         params_count.append(prix_max)
-
-#     # Exécution de la requête pour obtenir le nombre total d'éléments
-#     cursor.execute(query_count, params_count)
-#     total_count = cursor.fetchone()[0]
-
-#     # Calcul de l'offset à partir de la page et du nombre d'éléments par page
-#     offset = (page - 1) * per_page
-
-#     # Construction de la requête SQL pour récupérer les éléments à afficher
-#     query_select = "SELECT * FROM Locations WHERE 1=1"
-#     params_select = []
-
-#     if ville:
-#         query_select += " AND Ville = ?"
-#         params_select.append(ville)
-#     if commune:
-#         query_select += " AND Commune = ?"
-#         params_select.append(commune)
-#     if nombre_de_pieces:
-#         query_select += " AND Nombre_de_pieces = ?"
-#         params_select.append(nombre_de_pieces)
-#     if prix_min:
-#         query_select += " AND Prix_mensuel >= ?"
-#         params_select.append(prix_min)
-#     if prix_max:
-#         query_select += " AND Prix_mensuel <= ?"
-#         params_select.append(prix_max)
-
-#     query_select += " ORDER BY IdLocations OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"
-#     params_select += [offset, per_page]
-
-#     # Débogage - Afficher la requête SQL dans la console
-#     print_query(query_select, params_select)
-
-#     # Exécution de la requête pour obtenir les éléments à afficher
-#     cursor.execute(query_select, params_select)
-#     loc_afi = cursor.fetchall()
-
-#     # Configuration de la pagination avec le nombre total d'éléments et le nombre d'éléments par page
-#     pagination = Pagination(page=page, total=total_count, per_page=per_page, css_framework='bootstrap5')
-
-#     # Fermeture du curseur et de la connexion
-#     cursor.close()
-#     conn.close()
-
-#     # Rendu du template avec les données récupérées et la pagination
-#     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
-
-####################
-
-# #La route doit être définie avant la fonction associée
-# @app.route("/loue_maison", methods=['GET', 'POST'])
-# def loue_maison():
-#     page = request.args.get(get_page_parameter(), type=int, default=1)
-
-#     # Définir le nombre d'éléments par page
-#     per_page = 4  # Vous pouvez ajuster cela en fonction de vos besoins
-
-#     # Établir une connexion à la base de données
-#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-#     cur = conn.cursor()
-
-#     # Exécuter la requête SQL avec la pagination
-#     query = """
-#         SELECT *
-#         FROM (
-#             SELECT *, ROW_NUMBER() OVER (ORDER BY IdLocations) AS RowNum
-#             FROM Locations
-#         ) AS paginated
-#         WHERE RowNum BETWEEN ? AND ?
-#     """
-#     cur.execute(query, ((page - 1) * per_page + 1, page * per_page))
-
-#     loc_afi = cur.fetchall()
-#     cur.close()
-#     conn.close()
-
-#     # Obtenir le nombre total d'éléments (utile pour la pagination)
-#     conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
-#     cur = conn.cursor()
-#     total = cur.execute("SELECT COUNT(*) FROM Locations").fetchone()[0]
-#     cur.close()
-#     conn.close()
-
-#     # Créer l'objet Pagination
-#     pagination = Pagination(page=page, per_page=per_page, total=total, record_name='locations', css_framework='bootstrap5')
-
-#     return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
+    Returns:
+    - str: String with line breaks added.
+    """
+    return '\n'.join([s[i:i+width] for i in range(0, len(s), width)])
 
 ###########################################################################################################################################################
 
 #################################################################
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @app.route('/loue_maison', methods=['GET', 'POST'])
 def loue_maison():
@@ -244,12 +124,21 @@ def loue_maison():
     query_select += " ORDER BY IdLocations OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"
     params_select += [offset, per_page]
 
-    # Débogage - Afficher la requête SQL dans la console
-    print_query(query_select, params_select)
-
     # Exécution de la requête pour obtenir les éléments à afficher
     cursor.execute(query_select, params_select)
     loc_afi = cursor.fetchall()
+
+    # Initialize an empty list to store processed data
+    locations = []
+
+    for row in loc_afi:
+        # Process each row and extract the Image1 attribute
+        images = row.Image1.split(',') if row.Image1 else []
+        # Append a dictionary with the processed data to the locations list
+        locations.append({
+            'row': row,
+            'images': images
+        })
 
     # Configuration de la pagination avec le nombre total d'éléments et le nombre d'éléments par page
     pagination = Pagination(page=page, total=total_count, per_page=per_page, css_framework='bootstrap5')
@@ -259,11 +148,100 @@ def loue_maison():
     conn.close()
 
     # Rendu du template avec les données récupérées et la pagination
-    return render_template("/page/loue_maison.html", location=loc_afi, pagination=pagination)
+    return render_template("/page/loue_maison.html", locations=locations, pagination=pagination)
 
-@app.route("/achete_maison")
+@app.route("/achete_maison",methods=['GET', 'POST'])
 def achete_maison():
-    return render_template("/page/achete_maison.html")
+
+    # Connexion à la base de données
+    conn = pyodbc.connect(app.config["SQL_SERVER_CONNECTION_STRING"])
+    cursor = conn.cursor()
+
+    # Récupération de la page actuelle depuis l'URL
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+
+    # Nombre d'éléments à afficher par page
+    per_page = 5
+
+    # Définition des filtres
+    ville = request.form.get('Ville')
+    commune = request.form.get('Commune')
+    nombre_de_pieces = request.form.get('Nombre_de_pieces')
+    prix_min = request.form.get('Prix_min')
+    prix_max = request.form.get('Prix_max')
+
+    # Construction de la requête SQL en fonction des filtres
+    query_count = "SELECT COUNT(*) FROM Maison WHERE 1=1"
+    params_count = []
+
+    if ville:
+        query_count += " AND Ville = ?"
+        params_count.append(ville)
+    if commune:
+        query_count += " AND Commune = ?"
+        params_count.append(commune)
+    if nombre_de_pieces:
+        query_count += " AND Nombre_de_pieces = ?"
+        params_count.append(nombre_de_pieces)
+    if prix_min:
+        query_count += " AND Prix_unitaire >= ?"
+        params_count.append(prix_min)
+    if prix_max:
+        query_count += " AND Prix_unitaire <= ?"
+        params_count.append(prix_max)
+
+    # Exécution de la requête pour obtenir le nombre total d'éléments
+    cursor.execute(query_count, params_count)
+    total_count = cursor.fetchone()[0]
+
+    # Calcul de l'offset à partir de la page et du nombre d'éléments par page
+    offset = (page - 1) * per_page
+
+    # Construction de la requête SQL pour récupérer les éléments à afficher
+    query_select = "SELECT * FROM Maison WHERE 1=1"
+    params_select = []
+
+    if ville:
+        query_select += " AND Ville = ?"
+        params_select.append(ville)
+    if commune:
+        query_select += " AND Commune = ?"
+        params_select.append(commune)
+    if nombre_de_pieces:
+        query_select += " AND Nombre_de_pieces = ?"
+        params_select.append(nombre_de_pieces)
+    if prix_min:
+        query_select += " AND Prix_unitaire >= ?"
+        params_select.append(prix_min)
+    if prix_max:
+        query_select += " AND Prix_unitaire <= ?"
+        params_select.append(prix_max)
+
+    query_select += " ORDER BY IdMaison OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"
+    params_select += [offset, per_page]
+
+    # Exécution de la requête pour obtenir les éléments à afficher
+    cursor.execute(query_select, params_select)
+    maison_ifo = cursor.fetchall()
+
+    maison = []
+
+    for row in maison_ifo:
+        # Process each row and extract the Image1 attribute
+        images = row.Image1.split(',') if row.Image1 else []
+        # Append a dictionary with the processed data to the locations list
+        maison.append({
+            'row': row,
+            'images': images
+        })
+    # Configuration de la pagination avec le nombre total d'éléments et le nombre d'éléments par page
+    pagination = Pagination(page=page, total=total_count, per_page=per_page, css_framework='bootstrap5')
+
+    # Fermeture du curseur et de la connexion
+    cursor.close()
+    conn.close()
+
+    return render_template("/page/achete_maison.html", maison_ifo=maison, pagination=pagination )
 
 @app.route("/contacte")
 def contacte():
@@ -295,12 +273,17 @@ def profile_user():
 
     return render_template('/profile/profile_user.html', utilisateur_info=utilisateur_info, loc=loc, mvm=mvm)
 
-
 ######## maison ###########
 
-@app.route("/profile_maison_en_vente")
-def profile_maison_en_vente():
-    return render_template("/profile/profile_maison.html")
+@app.route("/profile_maison_en_vente/<int:IdMaison>")
+def profile_maison_en_vente(IdMaison):
+    connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Maison WHERE IdMaison=?", (IdMaison,))
+    maison_info = cursor.fetchone()
+    images =  maison_info.Image1.split(',') if  maison_info.Image1 else []
+    cursor.close()
+    return render_template("/profile/profile_maison.html", row= maison_info, image=images)
 
 @app.route("/mise_en_vente_maison", methods=["GET", "POST"])
 def mise_en_vente_maison():
@@ -430,6 +413,16 @@ def supprimer_mise_en_vente_maison(IdMaison):
 
 #### loue_maison ###################
 
+@app.route("/profile_location/<int:IdLocations>")
+def profile_location(IdLocations):
+    connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Locations WHERE IdLocations=?", (IdLocations,))
+    Locations_info = cursor.fetchone()
+    images = Locations_info.Image1.split(',') if Locations_info.Image1 else []
+    cursor.close()
+    return render_template("/profile/profile_location.html", row=Locations_info, image=images)
+
 @app.route("/mise_en_location", methods=["GET", "POST"])
 def mise_en_location():
     if request.method == "POST":
@@ -486,10 +479,6 @@ def mise_en_location():
         return redirect(url_for("profile_user"))
 
     return render_template("/formulaire/ajoute/mise_en_location.html")
-
-@app.route("/profile_location")
-def profile_location():
-    return render_template("/profile/profile_location.html")
 
 @app.route("/modifier_mise_en_location/<int:IdLocations>", methods=["GET", "POST"])
 def modifier_mise_en_location(IdLocations):

@@ -60,13 +60,18 @@
                                         <input class="form-input" id="contact-email" type="text" name="GPS" data-constraints="@Required" >
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 wow-outer">
-                                <div class="form-wrap wow fadeSlideInUp">
-                                    <label for="myfiles">Choisir des fichiers (jusqu'à 10):</label>
-                                    <input type="file" class="form-control form-control-lg" id="myfiles" name="myfiles[]" multiple required/><br><br>                            
+                                <div class="col-md-6 wow-outer">
+                                    <div class="form-wrap wow fadeSlideInUp">
+                                        <label for="myfiles">Choisir des fichiers (jusqu'à 10):</label>
+                                        <input type="file" class="form-control" id="myfiles" name="myfiles[]" multiple><br><br>                            
+                                    </div>
                                 </div>
                             </div>
+                            <div id="image-preview" class="">
+                                <label>Aperçu des images:</label>
+                                <div id="preview-container" class="imge"></div>
+                            </div>
+
                             <div class="group group-middle">
                                 <div class="wow-outer"> 
                                     <button class="button button-primary button-winona wow slideInRight" type="submit">Ajout maison</button>
