@@ -27,13 +27,13 @@ Ville VARCHAR(200),
 Commune VARCHAR(200),
 Nombre_de_pieces INT,
 Prix_unitaire FLOAT,
-Descriptions VARCHAR(500),
+Descriptions VARCHAR(MAX),
 Type_de_maison VARCHAR(200),
 Statut_maison VARCHAR(200),
 GPS VARCHAR(200),
 Image1 VARCHAR(MAX),
 IdUtilisateur INT NOT NULL,
-FOREIGN KEY  (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
+FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
 
 
@@ -46,11 +46,13 @@ Nombre_de_pieces INT,
 Prix_mensuel FLOAT,
 Caution FLOAT,
 Avance FLOAT,
-Descriptions VARCHAR(200),
+Descriptions VARCHAR(MAX),
 Type_de_maison VARCHAR(200),
 Statut_maison VARCHAR(200),
 GPS VARCHAR(200),
-Image1 VARCHAR(MAX)
+Image1 VARCHAR(MAX),
+IdUtilisateur INT NOT NULL,
+FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur),
 )
 
 

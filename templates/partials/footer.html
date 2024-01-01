@@ -28,21 +28,21 @@
           <div class="col-sm-5 col-md-7 col-lg-4">
             <h5 class="font-weight-bold text-uppercase text-white">Galerie</h5>
             <div class="row row-x-10" data-lightgallery="group">
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-1.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-1-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-1.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-1-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"></div></a></div>
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-2.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-2-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-2.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-2-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"></div></a></div>
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-3.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-3-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-3.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-3-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"></div></a></div>
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-4.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-4-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-4.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-4-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"></div></a></div>
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-5.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-5-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-5.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-5-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"></div></a></div>
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-6.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-6-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-6.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-6-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"> </div></a></div>
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-7.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-7-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-7.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-7-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"></div></a></div>
-              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="static/images/gallery-original-8.jpg" data-lightgallery="item"><img class="thumbnail-minimal-image" src="static/images/footer-gallery-8-85x85.jpg" alt=""/>
+              <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="{{ url_for('static', filename='images/gallery-original-8.jpg') }}" data-lightgallery="item"><img class="thumbnail-minimal-image" src="{{ url_for('static', filename='images/footer-gallery-8-85x85.jpg') }}" alt=""/>
                   <div class="thumbnail-minimal-caption"></div></a></div>
             </div>
           </div>
@@ -78,8 +78,10 @@
     <div class="footer-advanced-aside">
       <div class="container">
         <!-- logo a change -->
-        <div class="footer-advanced-layout"><a class="brand" href="index.html"><img src="static/images/logo-light-115x34.png" alt="" width="115" height="34" srcset="static/images/logo-light-115x34.png 2x"/></a>
+        <div class="footer-advanced-layout"><a class="brand" href="/"><img src="{{ url_for('static', filename='images/logo-light-115x34.png') }}" alt="" width="115" height="34" srcset="{{ url_for('static', filename='images/logo-light-115x34.png') }}"/></a>
           <!-- Rights-->
+          
+          {{ url_for('static', filename='images/logo-light-115x34.png') }}
           <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span>. All Rights Reserved. Design by <a href="https://www.templatemonster.com">Ma Maison ma Vie</a></p>
         </div>
       </div>

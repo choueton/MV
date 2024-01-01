@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block enfant %}
+<section class="section novi-background section-md text-center">
+  <div class="main-wrapper">
+    <div class="container">
+      <div class="product-div">
+        <div class="product-div-left">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              {% for index in range(image|length) %}
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ index }}" {% if index == 0 %}class="active"{% endif %}></button>
+              {% endfor %}
+            </div>
+            <div class="carousel-inner">
+              {% for img in image %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                  <img src="{{ url_for('static', filename=img.lstrip('/static/')) }}" class="d-block w-100" alt="{{ img }}">
+                </div>
+              {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="hover-container">
+            {% for img in image %}
+            <div><img src = "{{ url_for('static', filename=img.lstrip('/static/')) }}"></div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="product-div-right text-start">
+
+          <span class="product-name">Ville:{{row.Ville}},<br>Commune:{{row.Commune}} </span>
+          <span class="product-price">Prix_mensuel:{{row.Prix_mensuel}}</span>
+          <span class="product-price">Caution:{{row.Caution}}</span>
+          <span class="product-price">Avance:{{row.Avance}}</span>
+          <span class="product-price">Type_de_maison:{{row.Type_de_maison}}</span>
+          <span class="product-price">GPS:{{row.GPS}}</span>
+          <div class="product-rating">
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star-half-alt"></i></span>
+            <span>(350 ratings)</span>
+          </div>
+          <p class="">{{row.Descriptions|add_line_breaks(55)}}</p>
+          <div class="btn-groups">
+            <a href="{{ url_for('contacte') }}" >
+              <button type="button" class="buy-now-btn">
+                <i class="fas fa-wallet">Acheter maintenant</i>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
