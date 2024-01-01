@@ -11,7 +11,7 @@
                 </div>
                 <h1 class="text-uppercase text-white font-weight-bold wow-outer"><span class="wow slideInDown" data-wow-delay=".2s">Propriétés</span></h1>
                 <p class="text-white wow-outer"><span class="wow slideInDown" data-wow-delay=".35s">c</span></p>
-                <div class="wow-outer button-outer"><a class="button button-md button-primary button-winona wow slideInDown" href="#" data-wow-delay=".4s">Voir Propriétés</a></div>
+                <div class="wow-outer button-outer"><a class="button button-md button-primary button-winona wow slideInDown" href="{{ url_for('achete_maison') }}" data-wow-delay=".4s">Voir Propriétés</a></div>
             </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
                     <p>Une demeure de luxe pour ceux qui apprécient les commodités haut de gamme.</p>
                 </article>
                 </div>
-                <div class="col-md-12 wow-outer"><a class="button button-primary button-winona button-md" href="#">Voir plus de Propriétés</a></div>
+                <div class="col-md-12 wow-outer"><a class="button button-primary button-winona button-md" href="{{ url_for('achete_maison') }}">Voir plus de Propriétés</a></div>
             </div>
         </div>
     </section>
@@ -166,7 +166,7 @@
                 <h4 class="thumbnail-light-title"><a href="#">Copropriétés</a></h4>
             </article>
             </div>
-            <div class="col-md-12 wow-outer"><a class="button button-primary button-winona button-md" href="#">Voir toutes les propriétés</a></div>
+            <div class="col-md-12 wow-outer"><a class="button button-primary button-winona button-md" href="{{ url_for('achete_maison') }}">Voir toutes les propriétés</a></div>
         </div>
         </div>
     </section>
