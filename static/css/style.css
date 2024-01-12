@@ -18360,3 +18360,11 @@ html, body{
         margin-bottom: 10px;
     }
 }
+
+/* contactservice */
+.contactservice{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}

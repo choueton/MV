@@ -27,7 +27,7 @@ app.secret_key = "votre_clé_secrète"
 # Configuration de la connexion à SQL Server
 app.config["SQL_SERVER_CONNECTION_STRING"] = """
     Driver={SQL Server};
-    Server=DESKTOP-JK6D8G9\SQLEXPRESS;
+    Server=DESKTOP-6RB7ER5\SQLEXPRESS;
     Database=MV;
     Trusted_Connection=yes;"""
 
