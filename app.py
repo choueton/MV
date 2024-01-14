@@ -1,4 +1,6 @@
-from flask import Flask, render_template, url_for, request, redirect, session
+from datetime import datetime
+from functools import wraps
+from flask import Flask, render_template, url_for, request, redirect, session,flash
 import pyodbc
 import os
 from werkzeug.utils import secure_filename
@@ -16,6 +18,21 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["UPLOAD_FOLDER1"] = UPLOAD_FOLDER1
 
+
+
+
+
+app.secret_key = "votre_clé_secrète"
+# Configuration de la connexion à SQL Server
+app.config["SQL_SERVER_CONNECTION_STRING"] = """
+    Driver={SQL Server};
+    Server=DESKTOP-JK6D8G9\SQLEXPRESS;
+    Database=MV;
+    Trusted_Connection=yes;"""
+
+
+
+
 def allowed_file1(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -23,14 +40,16 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-app.secret_key = "votre_clé_secrète"
-# Configuration de la connexion à SQL Server
-app.config["SQL_SERVER_CONNECTION_STRING"] = """
-    Driver={SQL Server};
-    Server=DESKTOP-6RB7ER5\SQLEXPRESS;
-    Database=MV;
-    Trusted_Connection=yes;"""
+# configuration de l'authentification requise pour toutes les pages
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            flash('Veuillez vous connecter pour accéder à cette page.', 'danger')
+            return redirect(url_for('connexion'))
+        return f(*args, **kwargs)
 
+    return decorated_function
 
 ###################################
 @app.template_filter('add_line_breaks')
@@ -67,12 +86,11 @@ def loue_maison():
     # Nombre d'éléments à afficher par page
     per_page = 5
 
-    # Définition des filtres
-    ville = request.form.get('Ville')
-    commune = request.form.get('Commune')
-    nombre_de_pieces = request.form.get('Nombre_de_pieces')
-    prix_min = request.form.get('Prix_min')
-    prix_max = request.form.get('Prix_max')
+    ville = request.args.get('Ville')
+    commune = request.args.get('Commune')
+    nombre_de_pieces = request.args.get('Nombre_de_pieces')
+    prix_min = request.args.get('Prix_min')
+    prix_max = request.args.get('Prix_max')
 
     # Construction de la requête SQL en fonction des filtres
     query_count = "SELECT COUNT(*) FROM Locations WHERE 1=1"
@@ -148,7 +166,7 @@ def loue_maison():
     conn.close()
 
     # Rendu du template avec les données récupérées et la pagination
-    return render_template("/page/loue_maison.html", locations=locations, pagination=pagination)
+    return render_template("/page/loue_maison.html", locations=locations, pagination=pagination,)
 
 @app.route("/achete_maison",methods=['GET', 'POST'])
 def achete_maison():
@@ -164,11 +182,11 @@ def achete_maison():
     per_page = 5
 
     # Définition des filtres
-    ville = request.form.get('Ville')
-    commune = request.form.get('Commune')
-    nombre_de_pieces = request.form.get('Nombre_de_pieces')
-    prix_min = request.form.get('Prix_min')
-    prix_max = request.form.get('Prix_max')
+    ville = request.args.get('Ville')
+    commune = request.args.get('Commune')
+    nombre_de_pieces = request.args.get('Nombre_de_pieces')
+    prix_min = request.args.get('Prix_min')
+    prix_max = request.args.get('Prix_max')
 
     # Construction de la requête SQL en fonction des filtres
     query_count = "SELECT COUNT(*) FROM Maison WHERE 1=1"
@@ -247,8 +265,32 @@ def achete_maison():
 def contacte():
     return render_template("/page/contacte.html")
 
-@app.route('/service')
+@app.route('/service', methods=['GET', 'POST'])
 def service():
+    if request.method == "POST":
+        nom_et_prenom = request.form["nom_et_prenom"]
+        Type_de_services = request.form["Type_de_services"]
+        lieu_debitation = request.form["lieu_debitation"]
+        telephonne = request.form["telephonne"]
+        Descriptions = request.form["Descriptions"]
+        Dates_str = request.form["Dates"]
+
+        # Convertissez la chaîne de date en objet datetime
+        Dates = datetime.fromisoformat(Dates_str)
+
+        connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+        cursor = connection.cursor()
+        
+        # Utilisez le format de la date et heure approprié dans la requête SQL
+        cursor.execute("INSERT INTO Services_demande (nom_et_prenom, Type_de_services, lieu_debitation, telephonne, Descriptions, Dates) VALUES (?, ?, ?, ?, ?, ?)",
+                       (nom_et_prenom, Type_de_services, lieu_debitation, telephonne, Descriptions, Dates))
+
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+        return render_template('/page/service.html')
+
     return render_template('/page/service.html')
 
 @app.route('/a_propos')
@@ -258,7 +300,9 @@ def a_propos():
 #### profile ###
 
 @app.route('/profile_user')
+@login_required
 def profile_user():
+
     IdUtilisateur = session.get('IdUtilisateur')
 
     connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
@@ -413,7 +457,7 @@ def supprimer_mise_en_vente_maison(IdMaison):
 
 #### loue_maison ###################
 
-@app.route("/profile_location/<int:IdLocations>")
+@app.route("/profile_location/<int:IdLocations>", methods=["GET", "POST"])
 def profile_location(IdLocations):
     connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
     cursor = connection.cursor()
@@ -421,7 +465,28 @@ def profile_location(IdLocations):
     Locations_info = cursor.fetchone()
     images = Locations_info.Image1.split(',') if Locations_info.Image1 else []
     cursor.close()
+
+    if request.method == "POST":
+        nom = request.form["nom"]
+        prenom = request.form["prenom"]
+        email = request.form["email"]
+        telephonne = request.form["telephonne"]
+        Descriptions = request.form["Descriptions"]
+
+        connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+        cursor = connection.cursor()
+
+        # Utilisez l'ID de la location associée
+        cursor.execute("INSERT INTO interesse (nom, prenom, email, telephonne, Descriptions, IdLocations) VALUES (?, ?, ?, ?, ?, ?)",
+                       (nom, prenom, email, telephonne, Descriptions, IdLocations))
+
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+
     return render_template("/profile/profile_location.html", row=Locations_info, image=images)
+
 
 @app.route("/mise_en_location", methods=["GET", "POST"])
 def mise_en_location():
@@ -575,10 +640,65 @@ def supprimer_service():
 ######## connexion / inscription  ###########
 
 
+# @app.route("/connexion", methods=["GET", "POST"])
+# def connexion():
+#     if request.method == 'POST':
+
+#         Email = request.form['Email']
+#         password = request.form['Mot_de_pass']
+
+#         connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+#         cursor = connection.cursor()
+#         cursor.execute("SELECT * FROM Utilisateur WHERE Email = ?", (Email,))
+#         user = cursor.fetchone()
+
+#         if user and check_password_hash(user.Mot_de_pass, password):  # Accès au mot de passe directement par le nom de colonne
+#             session['IdUtilisateur'] = user.IdUtilisateur
+#             print(session['IdUtilisateur'])
+#             session['user'] = user.Email
+#             print(session['IdUtilisateur'])
+#             return redirect(url_for('index'))
+#         else:
+#             print('Mauvaise adresse e-mail ou mot de passe.')
+            
+#     return render_template("./formulaire/connexion/login.html")
+
+
+# @app.route("/register", methods=['GET', 'POST'])
+# def register():
+#     if request.method == 'POST':
+#         Nom_et_prenoms = request.form['Nom_et_prenoms']
+#         Email = request.form['Email']
+#         Mot_de_pass = request.form['Mot_de_pass']
+#         Adresse = request.form['Adresse']
+#         Telephone = request.form['Telephone']
+
+#         # Hacher le mot de passe
+#         hashed_password = generate_password_hash(Mot_de_pass)
+
+#         connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+#         cursor = connection.cursor()
+#         cursor.execute("INSERT INTO Utilisateur (Nom_et_prenoms, Email, Mot_de_pass, Adresse, Telephone) VALUES (?, ?, ?, ?, ?)", (Nom_et_prenoms, Email, hashed_password, Adresse, Telephone))
+#         connection.commit()
+
+#         # Récupérer l'ID de l'utilisateur après l'insertion
+#         cursor.execute("SELECT IdUtilisateur FROM Utilisateur WHERE Email=?", (Email,))
+#         IdUtilisateur = cursor.fetchone()[0]
+
+#         session['IdUtilisateur'] = IdUtilisateur
+#         session['user'] = Email
+
+#         cursor.close()
+#         connection.close()
+
+#         return redirect(url_for('index'))
+
+#     return render_template("./formulaire/connexion/register.html")
+
+
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
     if request.method == 'POST':
-
         Email = request.form['Email']
         password = request.form['Mot_de_pass']
 
@@ -587,17 +707,14 @@ def connexion():
         cursor.execute("SELECT * FROM Utilisateur WHERE Email = ?", (Email,))
         user = cursor.fetchone()
 
-        if user and check_password_hash(user.Mot_de_pass, password):  # Accès au mot de passe directement par le nom de colonne
+        if user and check_password_hash(user.Mot_de_pass, password):
             session['IdUtilisateur'] = user.IdUtilisateur
-            print(session['IdUtilisateur'])
             session['user'] = user.Email
-            print(session['IdUtilisateur'])
             return redirect(url_for('index'))
         else:
             print('Mauvaise adresse e-mail ou mot de passe.')
-            
-    return render_template("./formulaire/connexion/login.html")
 
+    return render_template("./formulaire/connexion/login.html")
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -608,11 +725,20 @@ def register():
         Adresse = request.form['Adresse']
         Telephone = request.form['Telephone']
 
+        # Vérifier si l'email existe déjà
+        connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+        cursor = connection.cursor()
+        cursor.execute("SELECT IdUtilisateur FROM Utilisateur WHERE Email=?", (Email,))
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            flash('L\'adresse e-mail existe déjà. Veuillez choisir une autre adresse e-mail.', 'error')
+            return redirect(url_for('register'))
+
         # Hacher le mot de passe
         hashed_password = generate_password_hash(Mot_de_pass)
 
-        connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
-        cursor = connection.cursor()
+        # Effectuer l'insertion uniquement si l'email n'existe pas
         cursor.execute("INSERT INTO Utilisateur (Nom_et_prenoms, Email, Mot_de_pass, Adresse, Telephone) VALUES (?, ?, ?, ?, ?)", (Nom_et_prenoms, Email, hashed_password, Adresse, Telephone))
         connection.commit()
 
@@ -633,6 +759,7 @@ def register():
 @app.route('/deconnection')
 def deconnection():
     session.pop('user', None)
+    session.pop('IdUtilisateur', None)
     return redirect(url_for('index'))
 
 

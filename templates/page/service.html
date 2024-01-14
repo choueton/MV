@@ -82,15 +82,61 @@
         </div>
         <div class="contactservice">
           <div class="btn-groups">
-            <a href="{{ url_for('contacte') }}" >
-              <button type="button" class="buy-now-btn">
-                <i class="fas fa-wallet">Nous Contacter</i>
-              </button>
-            </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+              <i class="fas fa-wallet">Nous Contacter</i>
+            </button>                   
           </div>
         </div>
       </div>
     </section>
 
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <form method="post" action="/service">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">nom et prenom:</label>
+                  <input type="text" class="form-control" id="recipient-name" name="nom_et_prenom">
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Type de services:</label>
+                  <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="Type_de_services">
+                    <option value="Plomberie">Plomberie</option>
+                    <option value="Electricité">Electricité</option>
+                    <option value="Depannage Entretien">Depannage Entretien</option>
+                    <option value="Maconnerie">Peinture</option>
+                    <option value="Maconnerie">Couverture Zinguerie</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">lui debitation:</label>
+                  <input type="text" class="form-control" id="recipient-name" name="lieu_debitation">
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">telephone:</label>
+                  <input type="tel" class="form-control" id="recipient-name" name="telephonne">
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">date et heur:</label>
+                  <input type="datetime-local" class="form-control" id="recipient-name" name="Dates">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Descriptions:</label>
+                  <textarea class="form-control" id="message-text" name="Descriptions"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
 {% endblock %}
