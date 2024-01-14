@@ -477,7 +477,6 @@ def mise_en_location():
         connection.close()
 
         return redirect(url_for("profile_user"))
-
     return render_template("/formulaire/ajoute/mise_en_location.html")
 
 @app.route("/modifier_mise_en_location/<int:IdLocations>", methods=["GET", "POST"])
@@ -635,7 +634,6 @@ def register():
 def deconnection():
     session.pop('user', None)
     return redirect(url_for('index'))
-
 
 
 if __name__ == "__main__":
