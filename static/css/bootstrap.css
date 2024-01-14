@@ -5469,6 +5469,7 @@ textarea.form-control-lg {
 }
 
 .modal {
+  padding-top: 47px;
   --bs-modal-zindex: 1055;
   --bs-modal-width: 500px;
   --bs-modal-padding: 1rem;
@@ -5480,7 +5481,7 @@ textarea.form-control-lg {
   --bs-modal-border-radius: var(--bs-border-radius-lg);
   --bs-modal-box-shadow: var(--bs-box-shadow-sm);
   --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
-  --bs-modal-header-padding-x: 1rem;
+  --bs-modal-header-padding-x: 78rem;
   --bs-modal-header-padding-y: 1rem;
   --bs-modal-header-padding: 1rem 1rem;
   --bs-modal-header-border-color: var(--bs-border-color);
@@ -5618,7 +5619,7 @@ textarea.form-control-lg {
 
 @media (min-width: 576px) {
   .modal {
-    --bs-modal-margin: 1.75rem;
+    --bs-modal-margin: 8rem;
     --bs-modal-box-shadow: var(--bs-box-shadow);
   }
   .modal-dialog {

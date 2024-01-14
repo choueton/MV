@@ -52,11 +52,45 @@
           </div>
           <p class="">{{row.Descriptions|add_line_breaks(55)}}</p>
           <div class="btn-groups">
-            <a href="{{ url_for('contacte') }}" >
-              <button type="button" class="buy-now-btn">
-                <i class="fas fa-wallet">Acheter maintenant</i>
-              </button>
-            </a>
+            <form class="row g-3 needs-validation" method="post">
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="validationCustom01" name="nom" placeholder="nom" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="validationCustom02" name="prenom" placeholder="prenom" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="validationCustomUsername" class="form-label">email</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend">@</span>
+                  <input type="text" class="form-control" id="validationCustomUsername" placeholder="email" name="email" aria-describedby="inputGroupPrepend" required>
+                  <div class="invalid-feedback">
+                    Please choose a username.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <input type="tel" class="form-control" id="validationCustom03" placeholder="telephonne" name="telephonne" required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-12">
+                <textarea class="form-control" id="validationTextarea" placeholder="Bonjour, je suis intéressé par [VIlla duplex 5 pieces]" name="Descriptions" rows="3"  required></textarea>
+                <div class="invalid-feedback">
+                  Please enter a message in the textarea.
+                </div>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary" type="submit">Soumettre</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

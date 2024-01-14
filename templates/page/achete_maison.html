@@ -19,13 +19,13 @@
 <div class="views-exposed sticky-top bg-dark">
     <div class="container">
         <header class="d-flex justify-content-center py-3">
-            <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="">
+            <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="" action="">
                 <div class="d-flex justify-content-between">
-                    <input class="form-input" id="contact-first-name" type="text" name="Ville" placeholder="ville"> 
-                    <input class="form-input" id="contact-first-name" type="text" name="Commune" placeholder="Commune">
-                    <input class="form-input" id="contact-first-name" type="text" name="Nombre_de_pieces" placeholder="Nombre_de_pieces">
-                    <input class="form-input" id="contact-first-name" type="number" name="Prix_min" placeholder="Prix_min">
-                    <input class="form-input" id="contact-first-name" type="number" name="Prix_max" placeholder="Prix_max">
+                    <input class="form-input" id="contact-first-name" type="text" name="Ville" placeholder="ville" value="{{ request.args.get('Ville', '') }}"> 
+                    <input class="form-input" id="contact-first-name" type="text" name="Commune" placeholder="Commune" value="{{ request.args.get('Commune', '') }}">
+                    <input class="form-input" id="contact-first-name" type="text" name="Nombre_de_pieces" placeholder="Nombre_de_pieces" value="{{ request.args.get('Nombre_de_pieces', '') }}">
+                    <input class="form-input" id="contact-first-name" type="number" name="Prix_min" placeholder="Prix_min" value="{{ request.args.get('Prix_min', '') }}">
+                    <input class="form-input" id="contact-first-name" type="number" name="Prix_max" placeholder="Prix_max" value="{{ request.args.get('Prix_max', '') }}">
                 </div>
                 <div class="group group-middle">
                     <div class="wow-outer"> 

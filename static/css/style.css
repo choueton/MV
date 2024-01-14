@@ -13916,11 +13916,12 @@ button.swiper-pagination-bullet {
 *
 * Modal Custom
 */
-.modal {
+
+/* .modal {
 	display: flex !important;
 	padding: 30px 15px 7vh;
 	visibility: hidden;
-}
+} */
 
 .modal .close {
 	cursor: pointer;
