@@ -76,9 +76,23 @@ CREATE TABLE interesse (
     Email VARCHAR(200),
     telephonne VARCHAR(200),
     Descriptions VARCHAR(200),
-    IdLocations INT NOT NULL,
+    IdLocations INT,
+    IdMaison INT,
     FOREIGN KEY (IdLocations) REFERENCES Locations (IdLocations),
+    FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison),
 );
+
+
+DROP TABLE IF EXISTS contacte;
+CREATE TABLE contacte (
+    idcontacte INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+    nom VARCHAR(200),
+    prenom VARCHAR(200),
+    Email VARCHAR(200),
+    telephonne VARCHAR(200),
+    Descriptions VARCHAR(200),
+);
+
 
 DROP TABLE IF EXISTS Vendu
 CREATE TABLE Vendu (

@@ -26,7 +26,7 @@ app.secret_key = "votre_clé_secrète"
 # Configuration de la connexion à SQL Server
 app.config["SQL_SERVER_CONNECTION_STRING"] = """
     Driver={SQL Server};
-    Server=DESKTOP-6RB7ER5\SQLEXPRESS;
+    Server=DESKTOP-JK6D8G9\SQLEXPRESS;
     Database=MV;
     Trusted_Connection=yes;"""
 
@@ -261,26 +261,26 @@ def achete_maison():
 
 @app.route("/contacte", methods=['GET', 'POST'])
 def contacte():
+
     if request.method =="POST":
         prenom = request.form['prenom']
         nom = request.form['nom']
         email = request.form['email']
         phone = request.form['phone']
         message = request.form['message']
-        IdLocations = 1
+
         connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
         cursor = connection.cursor()
-
         # Utilisez le format de la date et heure approprié dans la requête SQL
         cursor.execute(
-            "INSERT INTO interesse (nom, prenom, email,telephonne, Descriptions,IdLocations) VALUES (?, ?, ?, ?, ?,?)",
-            (nom, prenom, email, phone, message,IdLocations))
-
+            "INSERT INTO contacte (nom, prenom, email, telephonne, Descriptions) VALUES (?, ?, ?, ?, ?)",
+            (nom, prenom, email, phone, message,))
+        
         connection.commit()
         flash('L\'adresse e-mail existe déjà. Veuillez choisir une autre adresse e-mail.', 'error')
         cursor.close()
         connection.close()
-        return render_template('/page/service.html')
+    
     return render_template("/page/contacte.html")
 
 @app.route('/service', methods=['GET', 'POST'])
@@ -336,7 +336,7 @@ def profile_user():
 
 ######## maison ###########
 
-@app.route("/profile_maison_en_vente/<int:IdMaison>")
+@app.route("/profile_maison_en_vente/<int:IdMaison>", methods=['GET', 'POST'])
 def profile_maison_en_vente(IdMaison):
     connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
     cursor = connection.cursor()
@@ -344,6 +344,27 @@ def profile_maison_en_vente(IdMaison):
     maison_info = cursor.fetchone()
     images =  maison_info.Image1.split(',') if  maison_info.Image1 else []
     cursor.close()
+
+    if request.method == "POST":
+
+        nom = request.form["nom"]
+        prenom = request.form["prenom"]
+        email = request.form["email"]
+        telephonne = request.form["telephonne"]
+        Descriptions = request.form["Descriptions"]
+
+        connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+        cursor = connection.cursor()
+
+        # Utilisez l'ID de la location associée
+        cursor.execute("INSERT INTO interesse (nom, prenom, email, telephonne, Descriptions, IdMaison) VALUES (?, ?, ?, ?, ?, ?)",
+                        (nom, prenom, email, telephonne, Descriptions, IdMaison))
+
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+
     return render_template("/profile/profile_maison.html", row= maison_info, image=images)
 
 @app.route("/mise_en_vente_maison", methods=["GET", "POST"])
