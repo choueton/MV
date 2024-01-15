@@ -49,8 +49,6 @@ def login_required(f):
             return redirect(url_for('connexion'))
         return f(*args, **kwargs)
 
-    return decorated_function
-
 ###################################
 @app.template_filter('add_line_breaks')
 def add_line_breaks(s, width):
@@ -261,8 +259,28 @@ def achete_maison():
 
     return render_template("/page/achete_maison.html", maison_ifo=maison, pagination=pagination )
 
-@app.route("/contacte")
+@app.route("/contacte", methods=['GET', 'POST'])
 def contacte():
+    if request.method =="POST":
+        prenom = request.form['prenom']
+        nom = request.form['nom']
+        email = request.form['email']
+        phone = request.form['phone']
+        message = request.form['message']
+        IdLocations = 1
+        connection = pyodbc.connect(app.config['SQL_SERVER_CONNECTION_STRING'])
+        cursor = connection.cursor()
+
+        # Utilisez le format de la date et heure approprié dans la requête SQL
+        cursor.execute(
+            "INSERT INTO interesse (nom, prenom, email,telephonne, Descriptions,IdLocations) VALUES (?, ?, ?, ?, ?,?)",
+            (nom, prenom, email, phone, message,IdLocations))
+
+        connection.commit()
+        flash('L\'adresse e-mail existe déjà. Veuillez choisir une autre adresse e-mail.', 'error')
+        cursor.close()
+        connection.close()
+        return render_template('/page/service.html')
     return render_template("/page/contacte.html")
 
 @app.route('/service', methods=['GET', 'POST'])
@@ -300,7 +318,6 @@ def a_propos():
 #### profile ###
 
 @app.route('/profile_user')
-@login_required
 def profile_user():
 
     IdUtilisateur = session.get('IdUtilisateur')
