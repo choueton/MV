@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block enfant %}  
+<div class="container">
+    <div class="row">
+        <!-- Formulaire à droite -->
+         <br>
+        <div class="col-md-6 form-container">
+            <h3>Informations sur la maison</h3>
+            <form action="" method="post">
+                <div class="row">
+                    <div class="row row-10">
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-first-Ville">Ville</label>
+                                <input class="form-input" id="contact-first-Ville" type="text" name="ville" data-constraints="@Required" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-last-Commune">Commune</label>
+                                <input class="form-input" id="contact-last-Commune" type="text" name="commune" data-constraints="@Required" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-last-Quartier">Quartier</label>
+                                <input class="form-input" id="contact-last-Quartier" type="text" name="quartier" data-constraints="@Required" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-last-carre">metre carre</label>
+                                <input class="form-input" id="contact-last-carre" type="text" name="metre_carre" data-constraints="@Required" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-pieces">Nombre de pieces</label>
+                                <input class="form-input" id="contact-pieces" type="number" name="nombre_de_pieces" min="1" data-constraints="@Numeric" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-chambres">Nombre de chambres</label>
+                                <input class="form-input" id="contact-chambres" type="number" name="nombre_de_chambres" min="1" data-constraints="@Numeric" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-bain">nombre salles de bain</label>
+                                <input class="form-input" id="contact-bain" type="number" name="nombre_de_salles_de_bain" min="1" data-constraints="@Numeric" required>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-Type-maison">Type de maison</label>
+                                <input class="form-input" id="contact-Type-maison" type="text" name="type_de_maison" data-constraints="@Required" required>
+                            </div>
+                        </div>
+                    
+                        <div class="col-12 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-message">Descriptions</label>
+                                <textarea class="form-input" id="contact-message" name="description" required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Prédire le prix</button>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <!-- Reçu à gauche -->
+        <div class="col-md-6">
+            <h3>Reçu de la maison</h3>
+            {% if predicted_price is not none %}
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Nombre de pièces</th>
+                        <td>{{ form_data['Nombre_de_pieces'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre de chambres</th>
+                        <td>{{ form_data['Nombre_de_chambres'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre de salles de bain</th>
+                        <td>{{ form_data['Nombre_de_salles_de_bain'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mètres carrés</th>
+                        <td>{{ form_data['metre_carre'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville</th>
+                        <td>{{ form_data['Ville'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Commune</th>
+                        <td>{{ form_data['Commune'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Quartier</th>
+                        <td>{{ form_data['Quartier'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type de maison</th>
+                        <td>{{ form_data['Type_de_maison'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ form_data['Descriptions'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prix environt (FCFA)</th>
+                        <td>{{ predicted_price }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <div class="row row-10">
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-first-Ville">Ville</label>
+            <input class="form-input" id="contact-first-Ville" type="text" name="Ville" data-constraints="@Required" required>
+        </div>
+    </div>
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-last-Commune">Commune</label>
+            <input class="form-input" id="contact-last-Commune" type="text" name="Commune" data-constraints="@Required" required>
+        </div>
+    </div>
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-last-Quartier">Quartier</label>
+            <input class="form-input" id="contact-last-Quartier" type="text" name="Quartier" data-constraints="@Required" required>
+        </div>
+    </div>
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-last-carre">metre carre</label>
+            <input class="form-input" id="contact-last-carre" type="text" name="metre_carre" data-constraints="@Required" required>
+        </div>
+    </div>
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-pieces">Nombre de pieces</label>
+            <input class="form-input" id="contact-pieces" type="number" name="Nombre_de_pieces" min="1" data-constraints="@Numeric" required>
+        </div>
+    </div>
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-chambres">Nombre de chambres</label>
+            <input class="form-input" id="contact-chambres" type="number" name="Nombre_de_chambres" min="1" data-constraints="@Numeric" required>
+        </div>
+    </div>
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-bain">nombre salles de bain</label>
+            <input class="form-input" id="contact-bain" type="number" name="Nombre_de_salles_de_bain" min="1" data-constraints="@Numeric" required>
+        </div>
+    </div>
+
+    <div class="col-md-6 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-Type-maison">Type de maison</label>
+            <input class="form-input" id="contact-Type-maison" type="text" name="Type_de_maison" data-constraints="@Required" required>
+        </div>
+    </div>
+
+    <div class="col-12 wow-outer">
+        <div class="form-wrap wow fadeSlideInUp">
+            <label class="form-label-outside" for="contact-message">Descriptions</label>
+            <textarea class="form-input" id="contact-message" name="message" required></textarea>
+        </div>
+    </div>
+</div> -->
+
+{% endblock %}

@@ -42,25 +42,32 @@
         <h3 class="text-uppercase font-weight-bold wow-outer"><span class="wow slideInDown">Résidences disponibles</span></h3>
 
         <div class="row row-lg-50 row-35 offset-top-2">
-            {% for maison_ifos in maison_ifo %}
+            {% for maisons in maison_ifo %}
                 <div class="col-md-3 wow-outer">
                     <!-- Post Modern-->
                     <article class="post-modern wow slideInLeft">
-                            <a class="post-modern-media" href="/profile_maison_en_vente/{{ maison_ifos['row'].IdMaison }}">
-                                <img src="{{ url_for('static', filename=maison_ifos['images'][0].lstrip('/static/')) }}" alt="" width="571" height="353"/>
-                            </a>
+                        <a class="post-modern-media" href="/profile_maison_en_vente/{{ maisons['row'].IdMaison }}">
+                            <img src="{{ url_for('static', filename=maisons['images'][0].lstrip('/static/')) }}" alt="" width="571" height="353"/>
+                        </a>
+                        <span class="like-btn" data-maison-id="{{ maisons['row'].IdMaison }}" data-liked="{{ maisons['row'].type_action }}">
+                            {% if maisons['row'].type_action %}
+                                <i class="fas fa-heart liked"></i>
+                            {% else %}
+                                <i class="far fa-heart"></i>
+                            {% endif %}
+                        </span>
                         <h4 class="post-modern-title">
-                            <a class="post-modern-title" href="/profile_maison_en_vente/{{ maison_ifos['row'].IdMaison }}">{{ maison_ifos['row'].Ville }},{{ maison_ifos['row'].Commune }}</a>
+                            <a class="post-modern-title" href="/profile_maison_en_vente/{{ maisons['row'].IdMaison }}">{{ maisons['row'].Ville }},{{ maisons['row'].Commune }}</a>
                         </h4>
                         <ul class="post-modern-meta">
                         <li>
                             <a class="button-winona" href="#">
-                                {{ maison_ifos['row'].Prix_unitaire }}
+                                {{ maisons['row'].Prix_unitaire }}
                             </a>
                         </li>
                         <li>300 Metres carr</li>
                         <li>
-                            {{ maison_ifos['row'].Nombre_de_pieces }} Pieces
+                            {{ maisons['row'].Nombre_de_pieces }} Pieces
                         </li>
                         </ul>
                         <p>Une propriété résidentielle confortable située dans un quartier calme et chaleureux.</p>

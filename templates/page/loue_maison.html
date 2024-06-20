@@ -49,6 +49,13 @@
                     <a class="post-modern-media" href="#">
                         <img src="{{ url_for('static', filename=location['images'][0].lstrip('/static/')) }}" alt="" width="571" height="353"/>
                     </a>
+                    <span class="like-btn" data-location-id="{{ location['row'].IdLocations }}" data-liked="{{ location['row'].type_action }}">
+                        {% if location['row'].type_action %}
+                            <i class="fas fa-heart liked"></i>
+                        {% else %}
+                            <i class="far fa-heart"></i>
+                        {% endif %}
+                    </span>
                     <h4 class="post-modern-title">
                         <a class="post-modern-title" href="/profile_location/{{ location['row'].IdLocations }}">{{ location['row'].Ville }}, {{ location['row'].Commune }}</a>
                     </h4>
@@ -59,15 +66,15 @@
                     <p>{{ location['row'].Descriptions|add_line_breaks(30) }}</p>
                 </article>
             </div>
-        {% endfor %}
+            {% endfor %}
         
-
             <div class="pagination justify-content-center">
                 {{ pagination.links }}
             </div>
-
+        
             <div class="col-md-12 wow-outer"><a class="button button-primary button-winona button-md" href="#">Voir plus de propriétés</a></div>
         </div>
+        
     </div>
 </section>
 {% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block enfant %}
+<section class="section novi-background bg-gray-100">
+  <div class=" justify-content-xl-between">
+      <div class="cell-xl-6 align-self-center container">
+          <div class="row">
+            <div class="col-lg-9 cell-inner">
+                <div class="section-lg">
+                <!-- RD Mailform-->
+                    <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/mise_en_location" enctype="multipart/form-data">
+                        <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Mise en location</span></h3>
+                        <div class="row row-10">
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-first-name">Ville</label>
+                                    <input class="form-input" id="contact-first-name" type="text" name="Ville" data-constraints="@Required" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-last-Commune">Commune</label>
+                                    <input class="form-input" id="contact-last-Commune" type="text" name="Commune" data-constraints="@Required" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-last-Quartier">Quartier</label>
+                                    <input class="form-input" id="contact-last-Quartier" type="text" name="Quartier" data-constraints="@Required" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-last-carre">metre carre</label>
+                                    <input class="form-input" id="contact-last-carre" type="text" name="metre_carre" data-constraints="@Required" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-pieces">Nombre de pieces</label>
+                                    <input class="form-input" id="contact-pieces" type="number" name="Nombre_de_pieces" min="1" data-constraints="@Numeric" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-chambres">Nombre de chambres</label>
+                                    <input class="form-input" id="contact-chambres" type="number" name="Nombre_de_chambres" min="1" data-constraints="@Numeric" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-email">nombre salles de bain</label>
+                                    <input class="form-input" id="contact-email" type="number" name="Nombre_de_salles_de_bain" min="1" data-constraints="@Numeric" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-mensuel">Prix mensuel</label>
+                                    <input class="form-input" id="contact-mensuel" type="number" name="Prix_mensuel" min="1" data-constraints="@Numeric" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer cs">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-Caution">Caution</label>
+                                    <input class="form-input" id="contact-Caution" type="INT" name="Caution" data-constraints="@Numeric" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer cs">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-Avance">Avance</label>
+                                    <input class="form-input" id="contact-Avance" type="INT" name="Avance" data-constraints="@Numeric" required>
+                                </div>
+                            </div>
+                            <div class="col-12 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-message">Descriptions</label>
+                                    <textarea class="form-input" id="contact-message" name="message" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-maison">Type de maison</label>
+                                    <input class="form-input" id="contact-maison" type="text" name="Type_de_maison" data-constraints="@Required" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                            <div class="form-wrap wow fadeSlideInUp">
+                                <label class="form-label-outside" for="contact-Statut-maison">Statut maison</label>
+                                <select class="form-input" id="contact-Statut-maison" type="text" name="Statut_maison" data-constraints="@Required" required>
+                                    <option value="Libre">Libre</option>
+                                    <option value="Occuppée">Occuppée</option>
+                                </select>
+                            </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label class="form-label-outside" for="contact-GPS">GPS</label>
+                                    <input class="form-input" id="contact-GPS" type="text" name="GPS" data-constraints="@Required" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wow-outer">
+                                <div class="form-wrap wow fadeSlideInUp">
+                                    <label for="myfiles">Choisir des fichiers (jusqu'à 10) de taille571x353:</label>
+                                    <input type="file" class="form-control" id="myfiles" name="myfiles[]" multiple required><br><br>
+                                </div>
+                            </div>
+                            <div id="image-preview">
+                                <label>Aperçu des images:</label>
+                                <div id="preview-container" class="imge"></div>
+                            </div>
+                        <div class="group group-middle">
+                            <div class="wow-outer"> 
+                                <button class="button button-primary button-winona wow slideInRight" type="submit">mettre en location</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputGPS = document.getElementById('contact-GPS');
+
+        inputGPS.addEventListener('change', function() {
+            const url = inputGPS.value.trim();
+
+            if (url.startsWith('https://maps.app.goo.gl/') || url.startsWith('https://www.google.com/maps/')) {
+                // Extraire les coordonnées à partir de l'URL
+                const urlParams = new URLSearchParams(url.split('?')[1]);
+                const params = urlParams.get('q').split('@')[1].split(',');
+                const latitude = params[0].trim();
+                const longitude = params[1].trim();
+
+                // Mettre à jour les champs de formulaire avec les coordonnées
+                document.getElementById('latitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
+            } else {
+                alert('Veuillez fournir un lien valide de Google Maps.');
+                inputGPS.value = ''; // Effacer le champ si le lien n'est pas valide
+            }
+        });
+    });
+</script>
+
+{% endblock %}

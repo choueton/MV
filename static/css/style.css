@@ -3234,6 +3234,7 @@ textarea.form-input {
 
 .post-modern-media img {
 	width: 100%;
+	object-fit: cover;
 }
 
 .post-modern-media:hover::before {
@@ -13919,7 +13920,7 @@ button.swiper-pagination-bullet {
 
 /* .modal {
 	display: flex !important;
-	padding: 30px 15px 7vh;
+	padding: 30px 15px 7vh;post-modern-media
 	visibility: hidden;
 } */
 

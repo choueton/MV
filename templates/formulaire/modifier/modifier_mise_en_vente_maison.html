@@ -1,86 +1,205 @@
 {% extends 'base.html' %}
 
 {% block enfant %}  
-    <section class="section novi-background bg-gray-100">
+    <!-- <section class="section novi-background bg-gray-100">
         <div class=" justify-content-xl-between">
             <div class="cell-xl-6 align-self-center container">
                 <div class="row">
-                <div class="col-lg-9 cell-inner">
-                    <div class="section-lg">
-                    <!-- RD Mailform-->
-                        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="" enctype="multipart/form-data">
-                            <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Mise en vente de maisons</span></h3>
-                            <div class="row row-10">
-                                <div class="col-md-6 wow-outer">
+                    <div class="col-lg-9 cell-inner">
+                        <div class="section-lg">
+                        RD Mailform
+                            <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="" enctype="multipart/form-data">
+                                <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Mise en vente de maisons</span></h3>
+                                <div class="row row-10">
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-first-Ville">Ville</label>
+                                            <input class="form-input" id="contact-first-Ville" type="text" name="Ville" data-constraints="@Required" value="{{Maison_data.Ville}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-last-Commune">Commune</label>
+                                            <input class="form-input" id="contact-last-Commune" type="text" name="Commune" data-constraints="@Required" value="{{Maison_data.Commune}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-last-Quartier">Quartier</label>
+                                            <input class="form-input" id="contact-last-Quartier" type="text" name="Quartier" data-constraints="@Required" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-last-carre">metre carre</label>
+                                            <input class="form-input" id="contact-last-carre" type="text" name="metre_carre" data-constraints="@Required" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-pieces">Nombre de pieces</label>
+                                            <input class="form-input" id="contact-pieces" type="number" name="Nombre_de_pieces" min="1" data-constraints="@Numeric" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-chambres">Nombre de chambres</label>
+                                            <input class="form-input" id="contact-chambres" type="number" name="Nombre_de_chambres" min="1" data-constraints="@Numeric" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-bain">nombre salles de bain</label>
+                                            <input class="form-input" id="contact-bain" type="number" name="Nombre_de_salles_de_bain" min="1" data-constraints="@Numeric" required>
+                                        </div>
+                                    </div>
                                     <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-first-name">Ville</label>
-                                        <input class="form-input" id="contact-first-name" type="text" name="Ville" data-constraints="@Required" value="{{Maison_data.Ville}}" required>
+                                        <label class="form-label-outside" for="contact-unitaire">Prix unitaire</label>
+                                        <input class="form-input" id="contact-unitaire" type="INT" name="Prix_unitaire" data-constraints="@Numeric" value="{{Maison_data.Prix_unitaire}}" required>
+                                    </div>
+                                    <div class="col-12 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-message">Descriptions</label>
+                                            <textarea class="form-input" id="contact-message" name="message" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-maison">Type_de_maison</label>
+                                            <input class="form-input" id="contact-maison" type="text" name="Type_de_maison" data-constraints="@Required" value="{{Maison_data.Type_de_maison}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-GPS">GPS</label>
+                                            <input class="form-input" id="contact-GPS" type="text" name="GPS" data-constraints="@Required" value="{{Maison_data.GPS}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label for="myfiles">Choisir des fichiers (jusqu'à 10) de taille571x353:</label>
+                                            <input type="file" class="form-control" id="myfiles" name="myfiles[]" multiple required ><br><br>                            
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-last-name">Commune</label>
-                                        <input class="form-input" id="contact-last-name" type="text" name="Commune" data-constraints="@Required" value="{{Maison_data.Commune}}" required>
-                                    </div>
+                                <div id="image-preview" class="">
+                                    <label>Aperçu des images:</label>
+                                    <div id="preview-container" class="imge"></div>
                                 </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-email">Nombre_de_pieces</label>
-                                        <input class="form-input" id="contact-email" type="number" name="Nombre_de_pieces" min="1" data-constraints="@Numeric" value="{{Maison_data.Nombre_de_pieces}}" required>
-                                    </div>
-                                </div>
-                                <div class="form-wrap wow fadeSlideInUp">
-                                    <label class="form-label-outside" for="contact-email">Prix unitaire</label>
-                                    <input class="form-input" id="contact-email" type="INT" name="Prix_unitaire" data-constraints="@Numeric" value="{{Maison_data.Prix_unitaire}}" required>
-                                </div>
-                                <div class="col-12 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-message">Descriptions</label>
-                                        <textarea class="form-input" id="contact-message" name="message" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-email">Type_de_maison</label>
-                                        <input class="form-input" id="contact-email" type="text" name="Type_de_maison" data-constraints="@Required" value="{{Maison_data.Type_de_maison}}" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-phone">Statut_maison</label>
-                                        <select class="form-input" id="contact-email" type="text" name="Statut_maison" data-constraints="@Required" required>
-                                            <option value="Libre">Libre</option>
-                                            <option value="Occuppée">Occuppée</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label class="form-label-outside" for="contact-phone">GPS</label>
-                                        <input class="form-input" id="contact-email" type="text" name="GPS" data-constraints="@Required" value="{{Maison_data.GPS}}" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 wow-outer">
-                                    <div class="form-wrap wow fadeSlideInUp">
-                                        <label for="myfiles">Choisir des fichiers (jusqu'à 10):</label>
-                                        <input type="file" class="form-control" id="myfiles" name="myfiles[]" multiple required ><br><br>                            
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="image-preview" class="">
-                                <label>Aperçu des images:</label>
-                                <div id="preview-container" class="imge"></div>
-                            </div>
 
-                            <div class="group group-middle">
-                                <div class="wow-outer"> 
-                                    <button class="button button-primary button-winona wow slideInRight" type="submit">modifier</button>
+                                <div class="group group-middle">
+                                    <div class="wow-outer"> 
+                                        <button class="button button-primary button-winona wow slideInRight" type="submit">modifier</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section> -->
+
+
+
+    <section class="section novi-background bg-gray-100">
+        <div class="range justify-content-xl-between">
+            <div class="cell-xl-6 align-self-center container">
+                <div class="row">
+                    <div class="col-lg-9 cell-inner">
+                        <div class="section-lg">
+                        
+                            <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="" enctype="multipart/form-data">
+                                <h3 class="text-uppercase wow-outer"><span class="wow slideInDown">Mise en vente de maisons</span></h3>
+                                <div class="row row-10">
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-first-Ville">Ville</label>
+                                            <input class="form-input" id="contact-first-Ville" type="text" name="Ville" data-constraints="@Required" value="{{Maison_data.Ville}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-last-Commune">Commune</label>
+                                            <input class="form-input" id="contact-last-Commune" type="text" name="Commune" data-constraints="@Required" value="{{Maison_data.Commune}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-last-Quartier">Quartier</label>
+                                            <input class="form-input" id="contact-last-Quartier" type="text" name="Quartier" value="{{Maison_data.Quartier}}" data-constraints="@Required" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-last-carre">metre carre</label>
+                                            <input class="form-input" id="contact-last-carre" type="text" name="metre_carre" value="{{Maison_data.metre_carre}}" data-constraints="@Required" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-pieces">Nombre de pieces</label>
+                                            <input class="form-input" id="contact-pieces" type="number" name="Nombre_de_pieces" min="1" value="{{Maison_data.Nombre_de_pieces}}" data-constraints="@Numeric" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-chambres">Nombre de chambres</label>
+                                            <input class="form-input" id="contact-chambres" type="number" name="Nombre_de_chambres" min="1" value="{{Maison_data.Nombre_de_chambres}}" data-constraints="@Numeric" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-bain">nombre salles de bain</label>
+                                            <input class="form-input" id="contact-bain" type="number" name="Nombre_de_salles_de_bain" min="1" value="{{Maison_data.Nombre_de_salles_de_bain}}" data-constraints="@Numeric" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-wrap wow fadeSlideInUp">
+                                        <label class="form-label-outside" for="contact-unitaire">Prix unitaire</label>
+                                        <input class="form-input" id="contact-unitaire" type="INT" name="Prix_unitaire" data-constraints="@Numeric" value="{{Maison_data.Prix_unitaire}}" required>
+                                    </div>
+                                    <div class="col-12 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-message">Descriptions</label>
+                                            <textarea class="form-input" id="contact-message" name="message"value="{{location_data.Descriptions}}" required>{{location_data.Descriptions}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-maison">Type_de_maison</label>
+                                            <input class="form-input" id="contact-maison" type="text" name="Type_de_maison" data-constraints="@Required" value="{{Maison_data.Type_de_maison}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label class="form-label-outside" for="contact-GPS">GPS</label>
+                                            <input class="form-input" id="contact-GPS" type="text" name="GPS" data-constraints="@Required" value="{{Maison_data.GPS}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 wow-outer">
+                                        <div class="form-wrap wow fadeSlideInUp">
+                                            <label for="myfiles">Choisir des fichiers (jusqu'à 10) de taille571x353:</label>
+                                            <input type="file" class="form-control" id="myfiles" name="myfiles[]" multiple required ><br><br>                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="image-preview" class="">
+                                    <label>Aperçu des images:</label>
+                                    <div id="preview-container" class="imge"></div>
+                                </div>
+
+                                <div class="group group-middle">
+                                    <div class="wow-outer"> 
+                                        <button class="button button-primary button-winona wow slideInRight" type="submit">modifier</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="cell-xl-5 height-fill wow fadeIn">
+                <img id="building-image" src="https://example.com/path-to-your-building-image.jpg" width="800" height="600" alt="Building Image" style="border:0;">
             </div>
         </div>
     </section>
